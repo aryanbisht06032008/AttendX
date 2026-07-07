@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -13,12 +13,262 @@ enum UserRole {
   STUDENT
 }
 
+enum AttendanceMethod {
+  QR
+  MANUAL
+}
+
+enum AttendanceSessionStatus {
+  ACTIVE
+  CLOSED
+  CANCELLED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
+
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      UserRole
+  id       String   @id @default(cuid())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  studentProfile StudentProfile?
+  teacherProfile TeacherProfile?
+}
+
+model Department {
+  id   String @id @default(cuid())
+  name String
+  code String @unique
+
+  isActive Boolean @default(true)
+
+  programs Program[]
+
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  teachers  TeacherProfile[]
+}
+
+model Course {
+  id   String @id @default(cuid())
+  name String
+  code String @unique
+
+  durationYears  Int
+  totalSemesters Int
+
+  isActive Boolean @default(true)
+
+  programs Program[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Program {
+  id String @id @default(cuid())
+
+  departmentId String
+  courseId     String
+
+  name String
+  code String @unique
+
+  totalSeats Int
+
+  department Department @relation(fields: [departmentId], references: [id])
+  course     Course     @relation(fields: [courseId], references: [id])
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  sections  Section[]
+  students  StudentProfile[]
+  semesters Semester[]
+}
+
+model Section {
+  id String @id @default(cuid())
+
+  programId String
+
+  name      String
+  batchYear Int
+
+  maxStrength Int
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  program     Program             @relation(fields: [programId], references: [id])
+  students    StudentProfile[]
+  assignments TeacherAssignment[]
+}
+
+model StudentProfile {
+  userId String @id
+
+  programId String
+  sectionId String
+
+  enrollmentNumber String @unique
+  rollNumber       Int
+
+  admissionYear Int
+
+  guardianName  String
+  guardianPhone String
+
+  address     String
+  dateOfBirth DateTime
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id])
+  program     Program      @relation(fields: [programId], references: [id])
+  section     Section      @relation(fields: [sectionId], references: [id])
+  attendances Attendance[]
+}
+
+model TeacherProfile {
+  userId String @id
+
+  departmentId String
+
+  employeeId String @unique
+
+  designation String
+
+  highestQualification String
+
+  joiningDate DateTime
+
+  primaryPhone String
+
+  alternatePhone String?
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User                @relation(fields: [userId], references: [id])
+  department  Department          @relation(fields: [departmentId], references: [id])
+  assignments TeacherAssignment[]
+}
+
+model Semester {
+  id String @id @default(cuid())
+
+  programId String
+
+  semesterNumber Int
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  program Program @relation(fields: [programId], references: [id])
+
+  subjects Subject[]
+}
+
+model Subject {
+  id String @id @default(cuid())
+
+  semesterId String
+
+  name String
+  code String @unique
+
+  credits Int
+
+  isTheory Boolean
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  semester           Semester            @relation(fields: [semesterId], references: [id])
+  attendanceSessions AttendanceSession[]
+  assignments        TeacherAssignment[]
+}
+
+model TeacherAssignment {
+  id String @id @default(cuid())
+
+  teacherId String
+  subjectId String
+  sectionId String
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacher            TeacherProfile      @relation(fields: [teacherId], references: [userId])
+  subject            Subject             @relation(fields: [subjectId], references: [id])
+  section            Section             @relation(fields: [sectionId], references: [id])
+  attendanceSessions AttendanceSession[]
+
+  @@unique([teacherId, subjectId, sectionId])
+}
+
+model AttendanceSession {
+  id String @id @default(cuid())
+
+  teacherAssignmentId String
+
+  qrToken String @unique
+
+  startTime DateTime
+  endTime   DateTime
+
+  status AttendanceSessionStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacherAssignment TeacherAssignment @relation(fields: [teacherAssignmentId], references: [id])
+
+  attendances Attendance[]
+  subject     Subject?     @relation(fields: [subjectId], references: [id])
+  subjectId   String?
+}
+
+model Attendance {
+  id String @id @default(cuid())
+
+  attendanceSessionId String
+  studentId           String
+
+  scanTime DateTime @default(now())
+
+  status AttendanceStatus @default(PRESENT)
+  method AttendanceMethod @default(QR)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  attendanceSession AttendanceSession @relation(fields: [attendanceSessionId], references: [id])
+  student           StudentProfile    @relation(fields: [studentId], references: [userId])
+
+  @@unique([attendanceSessionId, studentId])
 }
