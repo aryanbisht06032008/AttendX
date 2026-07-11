@@ -1,8 +1,6 @@
 const bcrypt = require("bcrypt");
-const { PrismaClient } = require("@prisma/client");
+const prisma = require("../config/prisma");
 const generateToken = require("../utils/generateToken");
-
-const prisma = new PrismaClient();
 
 /**
  * Register User
@@ -10,6 +8,12 @@ const prisma = new PrismaClient();
 const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
+    if (!name || !email || !password || !role) {
+      return res.status(400).json({
+        message: "Name, email, password and role are required",
+      });
+    }
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -59,6 +63,12 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password are required",
+      });
+    }
 
     const user = await prisma.user.findUnique({
       where: { email },

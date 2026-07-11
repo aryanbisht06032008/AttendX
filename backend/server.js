@@ -6,6 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
+const departmentRoutes = require("./routes/departmentRoutes");
 
 // Middleware
 app.use(cors());
@@ -31,3 +32,6 @@ app.get("/api/profile", authMiddleware, (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/departments", departmentRoutes);
