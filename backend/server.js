@@ -7,19 +7,14 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 const departmentRoutes = require("./routes/departmentRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const errorMiddleware = require("./middleware/errorMiddleware");
+const programRoutes = require("./routes/programRoutes");
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Routes
-app.use("/api/auth", authRoutes);
-
-// Test Route
-app.get("/", (req, res) => {
-  res.send("🚀 AttendX Backend is Running...");
-});
-
 const PORT = process.env.PORT || 5000;
 
 app.get("/api/profile", authMiddleware, (req, res) => {
@@ -29,9 +24,15 @@ app.get("/api/profile", authMiddleware, (req, res) => {
   });
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/departments", departmentRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/programs", programRoutes);
+
+// Error middleware should always be last
+app.use(errorMiddleware);
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/departments", departmentRoutes);

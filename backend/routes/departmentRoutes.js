@@ -14,11 +14,15 @@ const {
   deleteDepartment,
 } = require("../controllers/departmentController");
 
+const validate = require("../middleware/validate");
+const departmentSchema = require("../validations/departmentValidation");
+
 // Create Department
 router.post(
   "/",
   authMiddleware,
   authorize("ADMIN"),
+  validate(departmentSchema),
   createDepartment
 );
 

@@ -1,47 +1,36 @@
+const departmentSchema = require("../validations/departmentValidation");
 const prisma = require("../config/prisma");
+const asyncHandler = require("../utils/asyncHandler");
 
 /**
  * Create Department
  */
-const createDepartment = async (req, res) => {
-  try {
-    const { name, code } = req.body;
+const createDepartment = asyncHandler(async (req, res) => {
+  const { name, code } = req.body;
 
-    if (!name || !code) {
-      return res.status(400).json({
-        message: "Name and code are required.",
-      });
-    }
 
-    const existingDepartment = await prisma.department.findUnique({
-      where: { code },
-    });
+  const existingDepartment = await prisma.department.findUnique({
+    where: { code },
+  });
 
-    if (existingDepartment) {
-      return res.status(400).json({
-        message: "Department code already exists.",
-      });
-    }
-
-    const department = await prisma.department.create({
-      data: {
-        name,
-        code,
-      },
-    });
-
-    res.status(201).json({
-      message: "Department created successfully.",
-      department,
-    });
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      message: "Server Error",
+  if (existingDepartment) {
+    return res.status(400).json({
+      message: "Department code already exists.",
     });
   }
-};
+
+  const department = await prisma.department.create({
+    data: {
+      name,
+      code,
+    },
+  });
+
+  res.status(201).json({
+    message: "Department created successfully.",
+    department,
+  });
+});
 
 /**
  * Get All Departments
