@@ -6,49 +6,41 @@ const authMiddleware = require("../middleware/authMiddleware");
 const authorize = require("../middleware/roleMiddleware");
 const validate = require("../middleware/validate");
 
-const programSchema = require("../validations/programValidation");
+const semesterSchema = require("../validations/semesterValidation");
 
 const {
-  createProgram,
-  getPrograms,
-  getProgramById,
-  updateProgram,
-  deleteProgram,
-} = require("../controllers/programController");
+  createSemester,
+  getSemesters,
+  getSemesterById,
+  updateSemester,
+  deleteSemester,
+} = require("../controllers/semesterController");
 
 router.post(
   "/",
   authMiddleware,
   authorize("ADMIN"),
-  validate(programSchema),
-  createProgram
+  validate(semesterSchema),
+  createSemester
 );
 
-router.get(
-  "/",
-  authMiddleware,
-  getPrograms
-);
+router.get("/", authMiddleware, getSemesters);
 
-router.get(
-  "/:id",
-  authMiddleware,
-  getProgramById
-);
+router.get("/:id", authMiddleware, getSemesterById);
 
 router.put(
   "/:id",
   authMiddleware,
   authorize("ADMIN"),
-  validate(programSchema),
-  updateProgram
+  validate(semesterSchema),
+  updateSemester
 );
 
 router.delete(
   "/:id",
   authMiddleware,
   authorize("ADMIN"),
-  deleteProgram
+  deleteSemester
 );
 
 module.exports = router;

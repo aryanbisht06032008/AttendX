@@ -30,6 +30,12 @@ enum AttendanceStatus {
   LATE
 }
 
+enum SubjectType {
+  THEORY
+  PRACTICAL
+  LAB
+}
+
 model User {
   id       String   @id @default(cuid())
   name     String
@@ -115,6 +121,8 @@ model Section {
   program     Program             @relation(fields: [programId], references: [id])
   students    StudentProfile[]
   assignments TeacherAssignment[]
+
+  @@unique([programId, batchYear, name])
 }
 
 model StudentProfile {
@@ -143,6 +151,8 @@ model StudentProfile {
   program     Program      @relation(fields: [programId], references: [id])
   section     Section      @relation(fields: [sectionId], references: [id])
   attendances Attendance[]
+  photoUrl String?
+  @@unique([sectionId, rollNumber])
 }
 
 model TeacherProfile {
@@ -170,6 +180,7 @@ model TeacherProfile {
   user        User                @relation(fields: [userId], references: [id])
   department  Department          @relation(fields: [departmentId], references: [id])
   assignments TeacherAssignment[]
+  photoUrl String?
 }
 
 model Semester {
@@ -187,28 +198,7 @@ model Semester {
   program Program @relation(fields: [programId], references: [id])
 
   subjects Subject[]
-}
-
-model Subject {
-  id String @id @default(cuid())
-
-  semesterId String
-
-  name String
-  code String @unique
-
-  credits Int
-
-  isTheory Boolean
-
-  isActive Boolean @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  semester           Semester            @relation(fields: [semesterId], references: [id])
-  attendanceSessions AttendanceSession[]
-  assignments        TeacherAssignment[]
+  @@unique([programId, semesterNumber])
 }
 
 model TeacherAssignment {
@@ -223,12 +213,37 @@ model TeacherAssignment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  teacher            TeacherProfile      @relation(fields: [teacherId], references: [userId])
-  subject            Subject             @relation(fields: [subjectId], references: [id])
-  section            Section             @relation(fields: [sectionId], references: [id])
+  teacher TeacherProfile @relation(fields: [teacherId], references: [userId])
+  subject Subject @relation(fields: [subjectId], references: [id])
+  section Section @relation(fields: [sectionId], references: [id])
+
   attendanceSessions AttendanceSession[]
 
   @@unique([teacherId, subjectId, sectionId])
+}
+
+
+
+model Subject {
+  id String @id @default(cuid())
+
+  semesterId String
+
+  name String
+  code String @unique
+
+  credits Int
+
+  type SubjectType
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  semester           Semester            @relation(fields: [semesterId], references: [id])
+  attendanceSessions AttendanceSession[]
+  assignments        TeacherAssignment[]
 }
 
 model AttendanceSession {
@@ -239,7 +254,11 @@ model AttendanceSession {
   qrToken String @unique
 
   startTime DateTime
-  endTime   DateTime
+  endTime DateTime?
+  attendanceDate DateTime
+  room String?
+  lectureNumber Int?
+  expiresAt DateTime
 
   status AttendanceSessionStatus @default(ACTIVE)
 
@@ -271,4 +290,5 @@ model Attendance {
   student           StudentProfile    @relation(fields: [studentId], references: [userId])
 
   @@unique([attendanceSessionId, studentId])
+  remarks String?
 }

@@ -6,49 +6,49 @@ const authMiddleware = require("../middleware/authMiddleware");
 const authorize = require("../middleware/roleMiddleware");
 const validate = require("../middleware/validate");
 
-const programSchema = require("../validations/programValidation");
+const subjectSchema = require("../validations/subjectValidation");
 
 const {
-  createProgram,
-  getPrograms,
-  getProgramById,
-  updateProgram,
-  deleteProgram,
-} = require("../controllers/programController");
+  createSubject,
+  getSubjects,
+  getSubjectById,
+  updateSubject,
+  deleteSubject,
+} = require("../controllers/subjectController");
 
 router.post(
   "/",
   authMiddleware,
   authorize("ADMIN"),
-  validate(programSchema),
-  createProgram
+  validate(subjectSchema),
+  createSubject
 );
 
 router.get(
   "/",
   authMiddleware,
-  getPrograms
+  getSubjects
 );
 
 router.get(
   "/:id",
   authMiddleware,
-  getProgramById
+  getSubjectById
 );
 
 router.put(
   "/:id",
   authMiddleware,
   authorize("ADMIN"),
-  validate(programSchema),
-  updateProgram
+  validate(subjectSchema),
+  updateSubject
 );
 
 router.delete(
   "/:id",
   authMiddleware,
   authorize("ADMIN"),
-  deleteProgram
+  deleteSubject
 );
 
 module.exports = router;
