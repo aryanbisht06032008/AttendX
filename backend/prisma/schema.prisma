@@ -151,7 +151,8 @@ model StudentProfile {
   program     Program      @relation(fields: [programId], references: [id])
   section     Section      @relation(fields: [sectionId], references: [id])
   attendances Attendance[]
-  photoUrl String?
+  photoUrl    String?
+
   @@unique([sectionId, rollNumber])
 }
 
@@ -180,7 +181,7 @@ model TeacherProfile {
   user        User                @relation(fields: [userId], references: [id])
   department  Department          @relation(fields: [departmentId], references: [id])
   assignments TeacherAssignment[]
-  photoUrl String?
+  photoUrl    String?
 }
 
 model Semester {
@@ -198,6 +199,7 @@ model Semester {
   program Program @relation(fields: [programId], references: [id])
 
   subjects Subject[]
+
   @@unique([programId, semesterNumber])
 }
 
@@ -214,15 +216,13 @@ model TeacherAssignment {
   updatedAt DateTime @updatedAt
 
   teacher TeacherProfile @relation(fields: [teacherId], references: [userId])
-  subject Subject @relation(fields: [subjectId], references: [id])
-  section Section @relation(fields: [sectionId], references: [id])
+  subject Subject        @relation(fields: [subjectId], references: [id])
+  section Section        @relation(fields: [sectionId], references: [id])
 
   attendanceSessions AttendanceSession[]
 
   @@unique([teacherId, subjectId, sectionId])
 }
-
-
 
 model Subject {
   id String @id @default(cuid())
@@ -254,11 +254,7 @@ model AttendanceSession {
   qrToken String @unique
 
   startTime DateTime
-  endTime DateTime?
-  attendanceDate DateTime
-  room String?
-  lectureNumber Int?
-  expiresAt DateTime
+  endTime   DateTime?
 
   status AttendanceSessionStatus @default(ACTIVE)
 
@@ -267,9 +263,11 @@ model AttendanceSession {
 
   teacherAssignment TeacherAssignment @relation(fields: [teacherAssignmentId], references: [id])
 
+  // Add these two lines
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
   attendances Attendance[]
-  subject     Subject?     @relation(fields: [subjectId], references: [id])
-  subjectId   String?
 }
 
 model Attendance {
@@ -288,7 +286,7 @@ model Attendance {
 
   attendanceSession AttendanceSession @relation(fields: [attendanceSessionId], references: [id])
   student           StudentProfile    @relation(fields: [studentId], references: [userId])
+  remarks           String?
 
   @@unique([attendanceSessionId, studentId])
-  remarks String?
 }

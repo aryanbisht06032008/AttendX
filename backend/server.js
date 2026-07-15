@@ -16,7 +16,9 @@ const sectionRoutes = require("./routes/sectionRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const teacherAssignmentRoutes = require("./routes/teacherAssignmentRoutes");
-
+const attendanceSessionRoutes = require("./routes/attendanceSessionRoutes");
+const attendanceRoutes = require("./routes/attendanceRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 // Middleware
 app.use(cors());
@@ -40,6 +42,9 @@ app.use("/api/sections", sectionRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/teacher-assignments", teacherAssignmentRoutes);
+app.use("/api/attendance-sessions", attendanceSessionRoutes);
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // Error middleware should always be last
 app.use(errorMiddleware);

@@ -1,6 +1,8 @@
 const crypto = require("crypto");
+const QRCode = require("qrcode");
 const prisma = require("../config/prisma");
 const asyncHandler = require("../utils/asyncHandler");
+
 
 /**
  * Start Attendance Session
@@ -47,6 +49,8 @@ const startAttendanceSession = asyncHandler(async (req, res) => {
   // Generate Secure QR Token
   const qrToken = crypto.randomBytes(32).toString("hex");
 
+  const qrImage = await QRCode.toDataURL(qrToken);
+
   const session = await prisma.attendanceSession.create({
     data: {
       teacherAssignmentId,
@@ -72,6 +76,7 @@ const startAttendanceSession = asyncHandler(async (req, res) => {
   res.status(201).json({
     message: "Attendance session started successfully.",
     session,
+    qrCode: qrImage,
   });
 });
 
