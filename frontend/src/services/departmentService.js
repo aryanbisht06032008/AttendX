@@ -1,21 +1,50 @@
-import api from "../api/axios";
+import api from "./api";
 
+// Get all departments
 export const getDepartments = async () => {
   const response = await api.get("/departments");
   return response.data;
 };
 
-export const createDepartment = async (data) => {
-  const response = await api.post("/departments", data);
+// Get department by ID
+export const getDepartmentById = async (id) => {
+  const response = await api.get(
+    `/departments/${id}`
+  );
+
   return response.data;
 };
 
-export const updateDepartment = async (id, data) => {
-  const response = await api.put(`/departments/${id}`, data);
+// Create department
+export const createDepartment = async (
+  departmentData
+) => {
+  const response = await api.post(
+    "/departments",
+    departmentData
+  );
+
   return response.data;
 };
 
+// Update department
+export const updateDepartment = async (
+  id,
+  departmentData
+) => {
+  const response = await api.put(
+    `/departments/${id}`,
+    departmentData
+  );
+
+  return response.data;
+};
+
+// Deactivate department
 export const deleteDepartment = async (id) => {
-  const response = await api.delete(`/departments/${id}`);
+  const response = await api.delete(
+    `/departments/${id}`
+  );
+
   return response.data;
 };

@@ -1,13 +1,5 @@
 const express = require("express");
 
-const router = express.Router();
-
-const authMiddleware = require("../middleware/authMiddleware");
-const authorize = require("../middleware/roleMiddleware");
-const validate = require("../middleware/validate");
-
-const programSchema = require("../validations/programValidation");
-
 const {
   createProgram,
   getPrograms,
@@ -16,39 +8,21 @@ const {
   deleteProgram,
 } = require("../controllers/programController");
 
-router.post(
-  "/",
-  authMiddleware,
-  authorize("ADMIN"),
-  validate(programSchema),
-  createProgram
-);
+const router = express.Router();
 
-router.get(
-  "/",
-  authMiddleware,
-  getPrograms
-);
+// Create Program
+router.post("/", createProgram);
 
-router.get(
-  "/:id",
-  authMiddleware,
-  getProgramById
-);
+// Get All Programs
+router.get("/", getPrograms);
 
-router.put(
-  "/:id",
-  authMiddleware,
-  authorize("ADMIN"),
-  validate(programSchema),
-  updateProgram
-);
+// Get Program By ID
+router.get("/:id", getProgramById);
 
-router.delete(
-  "/:id",
-  authMiddleware,
-  authorize("ADMIN"),
-  deleteProgram
-);
+// Update Program
+router.put("/:id", updateProgram);
+
+// Deactivate Program
+router.delete("/:id", deleteProgram);
 
 module.exports = router;

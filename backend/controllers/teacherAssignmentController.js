@@ -127,8 +127,34 @@ const deleteTeacherAssignment = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * Get Assignments for Logged-in Teacher
+ */
+const getMyTeacherAssignments = asyncHandler(async (req, res) => {
+  const teacherId = req.user.id;
+
+  const assignments = await prisma.teacherAssignment.findMany({
+    where: {
+      teacherId,
+      isActive: true,
+    },
+    include: {
+      subject: true,
+      section: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  res.json(assignments);
+});
+
+
+
 module.exports = {
   createTeacherAssignment,
   getTeacherAssignments,
+  getMyTeacherAssignments,
   deleteTeacherAssignment,
 };

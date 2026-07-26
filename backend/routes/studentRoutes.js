@@ -9,9 +9,16 @@ const validate = require("../middleware/validate");
 const studentSchema = require("../validations/studentValidation");
 
 const {
-  createStudent,
   getStudents,
+  createStudent,
+  updateStudent,
+  getStudentsBySection,
+  getStudentsForAttendance,
 } = require("../controllers/studentController");
+
+// =====================================
+// CREATE STUDENT
+// =====================================
 
 router.post(
   "/",
@@ -21,10 +28,47 @@ router.post(
   createStudent
 );
 
+// =====================================
+// GET ALL STUDENTS
+// =====================================
+
 router.get(
   "/",
   authMiddleware,
   getStudents
+);
+
+// =====================================
+// GET STUDENTS BY SECTION
+// =====================================
+
+router.get(
+  "/section/:sectionId",
+  authMiddleware,
+  getStudentsBySection
+);
+
+// =====================================
+// GET STUDENTS FOR ATTENDANCE SESSION
+// =====================================
+
+router.get(
+  "/attendance/:sessionId",
+  authMiddleware,
+  authorize("TEACHER", "ADMIN"),
+  getStudentsForAttendance
+);
+
+// =====================================
+// UPDATE STUDENT
+// =====================================
+
+router.put(
+  "/:id",
+  authMiddleware,
+  authorize("ADMIN"),
+  validate(studentSchema),
+  updateStudent
 );
 
 module.exports = router;

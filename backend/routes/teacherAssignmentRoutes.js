@@ -11,6 +11,7 @@ const teacherAssignmentSchema = require("../validations/teacherAssignmentValidat
 const {
   createTeacherAssignment,
   getTeacherAssignments,
+  getMyTeacherAssignments,
   deleteTeacherAssignment,
 } = require("../controllers/teacherAssignmentController");
 
@@ -20,6 +21,13 @@ router.post(
   authorize("ADMIN"),
   validate(teacherAssignmentSchema),
   createTeacherAssignment
+);
+
+router.get(
+  "/my",
+  authMiddleware,
+  authorize("TEACHER"),
+  getMyTeacherAssignments
 );
 
 router.get(
@@ -33,6 +41,13 @@ router.delete(
   authMiddleware,
   authorize("ADMIN"),
   deleteTeacherAssignment
+);
+
+router.get(
+  "/my",
+  authMiddleware,
+  authorize("TEACHER"),
+  getMyTeacherAssignments
 );
 
 module.exports = router;

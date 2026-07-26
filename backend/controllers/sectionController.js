@@ -60,24 +60,68 @@ const createSection = asyncHandler(async (req, res) => {
  * Get All Sections
  */
 const getSections = asyncHandler(async (req, res) => {
+  const { programId } = req.query;
 
   const sections = await prisma.section.findMany({
     where: {
       isActive: true,
+
+      ...(programId && {
+        programId,
+      }),
     },
+
     include: {
       program: true,
     },
+
     orderBy: {
       batchYear: "desc",
     },
   });
 
   res.json(sections);
+});
 
+/**
+ * Get Students by Section
+ */
+const getSectionStudents = asyncHandler(async (req, res) => {
+  const { sectionId } = req.params;
+
+  // Check if section exists
+  const section = await prisma.section.findUnique({
+    where: {
+      id: sectionId,
+    },
+  });
+
+  if (!section) {
+    return res.status(404).json({
+      message: "Section not found.",
+    });
+  }
+
+  // Get all students in this section
+  const students = await prisma.studentProfile.findMany({
+    where: {
+      sectionId,
+    },
+    include: {
+      user: true,
+      program: true,
+      section: true,
+    },
+    orderBy: {
+      rollNumber: "asc",
+    },
+  });
+
+  res.json(students);
 });
 
 module.exports = {
   createSection,
   getSections,
+  getSectionStudents,
 };

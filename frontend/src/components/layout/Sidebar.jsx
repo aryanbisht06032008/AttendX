@@ -1,10 +1,14 @@
 import { NavLink } from "react-router-dom";
+
 import {
   FaHome,
   FaBuilding,
   FaBook,
+  FaBookOpen,
+  FaChalkboardTeacher,
   FaGraduationCap,
   FaUsers,
+  FaLayerGroup,
 } from "react-icons/fa";
 
 const menuItems = [
@@ -18,15 +22,36 @@ const menuItems = [
     path: "/admin/departments",
     icon: <FaBuilding />,
   },
-  // {
-  //   name: "Courses",
-  //   path: "/admin/courses",
-  //   icon: <FaBook />,
-  // },
   {
     name: "Programs",
     path: "/admin/programs",
+    icon: <FaBook />,
+  },
+  {
+    name: "Subjects",
+    path: "/admin/subjects",
+    icon: <FaBookOpen />,
+  },
+  {
+    name: "Teachers",
+    path: "/admin/teachers",
+    icon: <FaUsers />,
+  },
+  {
+    name: "Teacher Assignments",
+    path: "/admin/teacher-assignments",
+    icon: <FaChalkboardTeacher />,
+  },
+  {
+    name: "Students",
+    path: "/admin/students",
     icon: <FaGraduationCap />,
+  },
+
+  {
+    name: "Sections",
+    path: "/admin/sections",
+    icon: <FaLayerGroup />,
   },
   {
     name: "Users",
@@ -40,6 +65,7 @@ function Sidebar() {
     <aside className="w-64 min-h-screen bg-stone-200 border-r border-stone-300">
 
       <div className="p-8">
+
         <h1 className="text-3xl font-bold text-amber-800">
           AttendX
         </h1>
@@ -47,11 +73,13 @@ function Sidebar() {
         <p className="text-stone-500 text-sm mt-1">
           Attendance System
         </p>
+
       </div>
 
       <nav className="px-4">
 
         {menuItems.map((item) => (
+
           <NavLink
             key={item.path}
             to={item.path}
@@ -65,6 +93,7 @@ function Sidebar() {
             {item.icon}
             {item.name}
           </NavLink>
+
         ))}
 
       </nav>

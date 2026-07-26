@@ -1,30 +1,36 @@
 const express = require("express");
 
-const router = express.Router();
+const {
+  getTeachers,
+  getTeacherById,
+  createTeacher,
+  updateTeacher,
+  deleteTeacher,
+  getMyAssignments,
+} = require("../controllers/teacherController");
 
 const authMiddleware = require("../middleware/authMiddleware");
 const authorize = require("../middleware/roleMiddleware");
-const validate = require("../middleware/validate");
 
-const teacherSchema = require("../validations/teacherValidation");
+const router = express.Router();
 
-const {
-  createTeacher,
-  getTeachers,
-} = require("../controllers/teacherController");
-
-router.post(
-  "/",
-  authMiddleware,
-  authorize("ADMIN"),
-  validate(teacherSchema),
-  createTeacher
-);
-
+// Teacher's own assignments
 router.get(
-  "/",
+  "/my-assignments",
   authMiddleware,
-  getTeachers
+  authorize("TEACHER"),
+  getMyAssignments
 );
+
+// Admin teacher management
+router.get("/", getTeachers);
+
+router.post("/", createTeacher);
+
+router.get("/:id", getTeacherById);
+
+router.put("/:id", updateTeacher);
+
+router.delete("/:id", deleteTeacher);
 
 module.exports = router;

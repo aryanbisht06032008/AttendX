@@ -11,7 +11,12 @@ const sectionSchema = require("../validations/sectionValidation");
 const {
   createSection,
   getSections,
+  getSectionStudents,
 } = require("../controllers/sectionController");
+
+// =====================================
+// CREATE SECTION
+// =====================================
 
 router.post(
   "/",
@@ -21,10 +26,25 @@ router.post(
   createSection
 );
 
+// =====================================
+// GET ALL ACTIVE SECTIONS
+// =====================================
+
 router.get(
   "/",
   authMiddleware,
   getSections
+);
+
+// =====================================
+// GET STUDENTS IN A SECTION
+// =====================================
+
+router.get(
+  "/:sectionId/students",
+  authMiddleware,
+  authorize("TEACHER", "ADMIN"),
+  getSectionStudents
 );
 
 module.exports = router;

@@ -9,7 +9,6 @@ const app = express();
 const departmentRoutes = require("./routes/departmentRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const errorMiddleware = require("./middleware/errorMiddleware");
-const programRoutes = require("./routes/programRoutes");
 const semesterRoutes = require("./routes/semesterRoutes");
 const subjectRoutes = require("./routes/subjectRoutes");
 const sectionRoutes = require("./routes/sectionRoutes");
@@ -19,6 +18,8 @@ const teacherAssignmentRoutes = require("./routes/teacherAssignmentRoutes");
 const attendanceSessionRoutes = require("./routes/attendanceSessionRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const programRoutes = require("./routes/programRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Middleware
 app.use(cors());
@@ -34,6 +35,7 @@ app.get("/api/profile", authMiddleware, (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/departments", departmentRoutes);
+app.use("/api/programs", programRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/programs", programRoutes);
 app.use("/api/semesters", semesterRoutes);
@@ -45,6 +47,8 @@ app.use("/api/teacher-assignments", teacherAssignmentRoutes);
 app.use("/api/attendance-sessions", attendanceSessionRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/programs", programRoutes);
+app.use("/api/users", userRoutes);
 
 // Error middleware should always be last
 app.use(errorMiddleware);
