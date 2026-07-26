@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaSignOutAlt } from "react-icons/fa";
+
 import api from "../../api/axios";
+import { useAuth } from "../../context/AuthContext";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
   // =====================================
   // TEACHER ASSIGNMENTS
   // =====================================
 
   const [assignments, setAssignments] = useState([]);
-  const [selectedAssignment, setSelectedAssignment] =
-    useState("");
-
-  const [assignmentLoading, setAssignmentLoading] =
-    useState(true);
+  const [selectedAssignment, setSelectedAssignment] = useState("");
+  const [assignmentLoading, setAssignmentLoading] = useState(true);
 
   // =====================================
   // ATTENDANCE SESSION
@@ -28,19 +32,24 @@ function Dashboard() {
   // =====================================
 
   const [attendances, setAttendances] = useState([]);
-  const [attendanceLoading, setAttendanceLoading] =
-    useState(false);
-
-  const [showAttendance, setShowAttendance] =
-    useState(false);
+  const [attendanceLoading, setAttendanceLoading] = useState(false);
+  const [showAttendance, setShowAttendance] = useState(false);
 
   // =====================================
   // STUDENTS
   // =====================================
 
   const [students, setStudents] = useState([]);
-  const [studentsLoading, setStudentsLoading] =
-    useState(false);
+  const [studentsLoading, setStudentsLoading] = useState(false);
+
+  // =====================================
+  // LOGOUT
+  // =====================================
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   // =====================================
   // GET TEACHER ASSIGNMENTS
@@ -50,9 +59,7 @@ function Dashboard() {
     try {
       setAssignmentLoading(true);
 
-      const response = await api.get(
-        "/teachers/my-assignments"
-      );
+      const response = await api.get("/teachers/my-assignments");
 
       const data = response.data || [];
 
@@ -467,22 +474,78 @@ function Dashboard() {
   // =====================================
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+
+      <div className="mx-auto max-w-6xl">
 
         {/* =====================================
             HEADER
         ===================================== */}
 
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Teacher Dashboard
-          </h1>
+        <div className="mb-8 flex flex-col gap-5 rounded-2xl bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
 
-          <p className="text-gray-600 mt-2">
-            Start an attendance session and display
-            the QR code for students.
-          </p>
+          <div>
+
+            <p className="text-sm font-semibold text-blue-600">
+              AttendX Teacher Portal
+            </p>
+
+            <h1 className="mt-1 text-3xl font-bold text-gray-800">
+              Teacher Dashboard
+            </h1>
+
+            <p className="mt-2 text-gray-600">
+              Start an attendance session and display
+              the QR code for students.
+            </p>
+
+          </div>
+
+          <div className="flex items-center gap-4">
+
+            {/* User Information */}
+
+            <div className="hidden text-right sm:block">
+
+              <p className="font-semibold text-gray-800">
+                {user?.name || "Teacher"}
+              </p>
+
+              <p className="text-sm text-gray-500">
+                {user?.role || "TEACHER"}
+              </p>
+
+            </div>
+
+            {/* Logout Button */}
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="
+                flex
+                items-center
+                gap-2
+                rounded-xl
+                bg-red-50
+                px-4
+                py-3
+                font-semibold
+                text-red-600
+                transition
+                hover:bg-red-100
+                hover:text-red-700
+              "
+            >
+              <FaSignOutAlt />
+
+              <span>
+                Logout
+              </span>
+            </button>
+
+          </div>
+
         </div>
 
 
@@ -491,25 +554,30 @@ function Dashboard() {
         ===================================== */}
 
         {!session && (
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="rounded-2xl bg-white p-6 shadow-md">
 
-            <h2 className="text-xl font-semibold mb-4">
+            <h2 className="mb-4 text-xl font-semibold">
               Start Attendance
             </h2>
 
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-gray-700">
               Select Subject & Section
             </label>
 
             {assignmentLoading ? (
-              <p className="text-gray-500 mb-4">
+
+              <p className="mb-4 text-gray-500">
                 Loading your assignments...
               </p>
+
             ) : assignments.length === 0 ? (
-              <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-lg p-4 mb-4">
+
+              <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-700">
                 No active teacher assignments found.
               </div>
+
             ) : (
+
               <select
                 value={selectedAssignment}
                 onChange={(e) =>
@@ -517,14 +585,16 @@ function Dashboard() {
                     e.target.value
                   )
                 }
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mb-4 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
+
                 <option value="">
                   -- Select Subject & Section --
                 </option>
 
                 {assignments.map(
                   (assignment) => (
+
                     <option
                       key={assignment.id}
                       value={assignment.id}
@@ -539,9 +609,12 @@ function Dashboard() {
                           ?.code ||
                         "Unknown"}
                     </option>
+
                   )
                 )}
+
               </select>
+
             )}
 
             <button
@@ -554,12 +627,13 @@ function Dashboard() {
                 loading ||
                 !selectedAssignment
               }
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
+              className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
             >
               {loading
                 ? "Starting..."
                 : "Start Attendance"}
             </button>
+
           </div>
         )}
 
@@ -569,13 +643,14 @@ function Dashboard() {
         ===================================== */}
 
         {session && (
-          <div className="bg-white rounded-xl shadow-md p-6 text-center">
 
-            <h2 className="text-2xl font-bold text-green-600 mb-2">
+          <div className="rounded-2xl bg-white p-6 text-center shadow-md">
+
+            <h2 className="mb-2 text-2xl font-bold text-green-600">
               Attendance Session Active
             </h2>
 
-            <p className="text-gray-600 mb-6">
+            <p className="mb-6 text-gray-600">
               Students can scan this QR code
               to mark their attendance.
             </p>
@@ -584,40 +659,46 @@ function Dashboard() {
             {/* QR CODE */}
 
             {qrCode ? (
-              <div className="flex justify-center mb-6">
+
+              <div className="mb-6 flex justify-center">
+
                 <img
                   src={qrCode}
                   alt="Attendance QR Code"
-                  className="w-72 h-72 border p-4 rounded-lg"
+                  className="h-72 w-72 rounded-lg border p-4"
                 />
+
               </div>
+
             ) : (
-              <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-lg p-4 mb-6">
+
+              <div className="mb-6 rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-700">
                 QR Code is being restored...
               </div>
+
             )}
 
 
             {/* SESSION INFORMATION */}
 
-            <div className="text-left max-w-xl mx-auto">
+            <div className="mx-auto max-w-xl text-left">
 
-              <p className="text-sm text-gray-500 mb-2">
+              <p className="mb-2 text-sm text-gray-500">
                 Subject
               </p>
 
-              <p className="font-semibold mb-4">
+              <p className="mb-4 font-semibold">
                 {session.teacherAssignment
                   ?.subject?.name ||
                   "—"}
               </p>
 
 
-              <p className="text-sm text-gray-500 mb-2">
+              <p className="mb-2 text-sm text-gray-500">
                 Section
               </p>
 
-              <p className="font-semibold mb-4">
+              <p className="mb-4 font-semibold">
                 {session.teacherAssignment
                   ?.section?.name ||
                   session.teacherAssignment
@@ -626,11 +707,11 @@ function Dashboard() {
               </p>
 
 
-              <p className="text-sm text-gray-500 mb-2">
+              <p className="mb-2 text-sm text-gray-500">
                 Session ID
               </p>
 
-              <p className="font-mono text-xs break-all bg-gray-100 p-3 rounded-lg mb-6">
+              <p className="mb-6 break-all rounded-lg bg-gray-100 p-3 font-mono text-xs">
                 {session.id}
               </p>
 
@@ -639,7 +720,7 @@ function Dashboard() {
 
             {/* BUTTONS */}
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
 
               <button
                 onClick={() =>
@@ -648,7 +729,7 @@ function Dashboard() {
                 disabled={
                   attendanceLoading
                 }
-                className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50"
+                className="rounded-lg bg-green-600 px-8 py-3 font-semibold text-white hover:bg-green-700 disabled:opacity-50"
               >
                 {attendanceLoading
                   ? "Loading..."
@@ -659,7 +740,7 @@ function Dashboard() {
               <button
                 onClick={endAttendance}
                 disabled={loading}
-                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 disabled:opacity-50"
+                className="rounded-lg bg-red-600 px-8 py-3 font-semibold text-white hover:bg-red-700 disabled:opacity-50"
               >
                 {loading
                   ? "Ending..."
@@ -669,6 +750,7 @@ function Dashboard() {
             </div>
 
           </div>
+
         )}
 
 
@@ -677,21 +759,24 @@ function Dashboard() {
         ===================================== */}
 
         {showAttendance && session && (
-          <div className="bg-white rounded-xl shadow-md mt-8 p-6">
 
-            <div className="flex justify-between items-center mb-6">
+          <div className="mt-8 rounded-2xl bg-white p-6 shadow-md">
+
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
               <div>
+
                 <h2 className="text-2xl font-bold text-gray-800">
                   Attendance Records
                 </h2>
 
-                <p className="text-gray-500 mt-1">
+                <p className="mt-1 text-gray-500">
                   Total Records:{" "}
                   <span className="font-semibold text-green-600">
                     {attendances.length}
                   </span>
                 </p>
+
               </div>
 
               <button
@@ -701,7 +786,7 @@ function Dashboard() {
                 disabled={
                   attendanceLoading
                 }
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                className="rounded-lg bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
               >
                 Refresh
               </button>
@@ -710,17 +795,23 @@ function Dashboard() {
 
 
             {attendances.length === 0 ? (
-              <div className="text-center py-12">
+
+              <div className="py-12 text-center">
+
                 <p className="text-gray-500">
                   No students have marked attendance yet.
                 </p>
+
               </div>
+
             ) : (
+
               <div className="overflow-x-auto">
 
                 <table className="w-full text-left">
 
                   <thead>
+
                     <tr className="border-b bg-gray-50">
 
                       <th className="px-4 py-3">
@@ -748,12 +839,14 @@ function Dashboard() {
                       </th>
 
                     </tr>
+
                   </thead>
 
                   <tbody>
 
                     {attendances.map(
                       (attendance) => (
+
                         <tr
                           key={attendance.id}
                           className="border-b hover:bg-gray-50"
@@ -788,7 +881,7 @@ function Dashboard() {
                           <td className="px-4 py-4">
 
                             <span
-                              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              className={`rounded-full px-3 py-1 text-sm font-medium ${
                                 attendance.status ===
                                 "PRESENT"
                                   ? "bg-green-100 text-green-700"
@@ -808,6 +901,7 @@ function Dashboard() {
                           </td>
 
                         </tr>
+
                       )
                     )}
 
@@ -816,9 +910,11 @@ function Dashboard() {
                 </table>
 
               </div>
+
             )}
 
           </div>
+
         )}
 
 
@@ -827,26 +923,33 @@ function Dashboard() {
         ===================================== */}
 
         {showAttendance && session && (
-          <div className="bg-white rounded-xl shadow-md mt-8 p-6">
 
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          <div className="mt-8 rounded-2xl bg-white p-6 shadow-md">
+
+            <h2 className="mb-6 text-2xl font-bold text-gray-800">
               Manual Attendance
             </h2>
 
             {studentsLoading ? (
+
               <p className="text-gray-500">
                 Loading students...
               </p>
+
             ) : students.length === 0 ? (
+
               <p className="text-gray-500">
                 No students found for this section.
               </p>
+
             ) : (
+
               <div className="overflow-x-auto">
 
                 <table className="w-full text-left">
 
                   <thead>
+
                     <tr className="border-b bg-gray-50">
 
                       <th className="px-4 py-3">
@@ -866,6 +969,7 @@ function Dashboard() {
                       </th>
 
                     </tr>
+
                   </thead>
 
                   <tbody>
@@ -881,6 +985,7 @@ function Dashboard() {
                           );
 
                         return (
+
                           <tr
                             key={student.userId}
                             className="border-b"
@@ -905,10 +1010,11 @@ function Dashboard() {
                             <td className="px-4 py-4">
 
                               {existingAttendance ? (
+
                                 <div className="flex items-center gap-3">
 
                                   <span
-                                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                    className={`rounded-full px-3 py-1 text-sm font-semibold ${
                                       existingAttendance.status ===
                                       "PRESENT"
                                         ? "bg-green-100 text-green-700"
@@ -930,8 +1036,10 @@ function Dashboard() {
                                   </span>
 
                                 </div>
+
                               ) : (
-                                <div className="flex gap-2">
+
+                                <div className="flex flex-wrap gap-2">
 
                                   <button
                                     onClick={() =>
@@ -943,7 +1051,7 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                                    className="rounded-lg bg-green-600 px-3 py-2 text-white hover:bg-green-700 disabled:opacity-50"
                                   >
                                     Present
                                   </button>
@@ -959,7 +1067,7 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="bg-yellow-500 text-white px-3 py-2 rounded-lg hover:bg-yellow-600 disabled:opacity-50"
+                                    className="rounded-lg bg-yellow-500 px-3 py-2 text-white hover:bg-yellow-600 disabled:opacity-50"
                                   >
                                     Late
                                   </button>
@@ -975,17 +1083,19 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 disabled:opacity-50"
+                                    className="rounded-lg bg-red-600 px-3 py-2 text-white hover:bg-red-700 disabled:opacity-50"
                                   >
                                     Absent
                                   </button>
 
                                 </div>
+
                               )}
 
                             </td>
 
                           </tr>
+
                         );
                       }
                     )}
@@ -995,9 +1105,11 @@ function Dashboard() {
                 </table>
 
               </div>
+
             )}
 
           </div>
+
         )}
 
 
@@ -1006,16 +1118,19 @@ function Dashboard() {
         ===================================== */}
 
         {message && (
-          <div className="mt-6 bg-white rounded-lg shadow p-4 text-center">
+
+          <div className="mt-6 rounded-lg bg-white p-4 text-center shadow">
 
             <p className="text-gray-700">
               {message}
             </p>
 
           </div>
+
         )}
 
       </div>
+
     </div>
   );
 }

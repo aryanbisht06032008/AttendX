@@ -1,8 +1,14 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -11,15 +17,35 @@ function Dashboard() {
 
         {/* ================= HEADER ================= */}
 
-        <div className="mb-10">
+        <div className="mb-10 flex items-center justify-between">
 
-          <h1 className="text-3xl font-bold text-gray-800">
-            Student Dashboard
-          </h1>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">
+              Student Dashboard
+            </h1>
 
-          <p className="text-gray-600 mt-2">
-            Manage your attendance and view your attendance history.
-          </p>
+            <p className="text-gray-600 mt-2">
+              Manage your attendance and view your attendance history.
+            </p>
+          </div>
+
+          {/* ================= LOGOUT BUTTON ================= */}
+
+          <button
+            onClick={handleLogout}
+            className="
+              bg-red-600
+              hover:bg-red-700
+              text-white
+              px-5
+              py-3
+              rounded-lg
+              font-medium
+              transition
+            "
+          >
+            Logout
+          </button>
 
         </div>
 
@@ -47,9 +73,17 @@ function Dashboard() {
 
             <button
               onClick={() =>
-                window.location.href = "/student/attendance-scanner"
+                navigate("/student/attendance-scanner")
               }
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+              className="
+                bg-blue-600
+                hover:bg-blue-700
+                text-white
+                px-6
+                py-3
+                rounded-lg
+                transition
+              "
             >
               Scan Attendance QR
             </button>
@@ -76,9 +110,17 @@ function Dashboard() {
 
             <button
               onClick={() =>
-                window.location.href = "/student/attendance-history"
+                navigate("/student/attendance-history")
               }
-              className="bg-green-600 text-white px-6 py-3 rounded-lg"
+              className="
+                bg-green-600
+                hover:bg-green-700
+                text-white
+                px-6
+                py-3
+                rounded-lg
+                transition
+              "
             >
               View Attendance History
             </button>
