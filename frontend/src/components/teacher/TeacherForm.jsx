@@ -90,7 +90,7 @@ function TeacherForm({
 
       {/* Teacher Name */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Teacher Name
         </label>
 
@@ -101,13 +101,13 @@ function TeacherForm({
           onChange={handleChange}
           placeholder="Enter teacher name"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Email
         </label>
 
@@ -118,14 +118,14 @@ function TeacherForm({
           onChange={handleChange}
           placeholder="teacher@example.com"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Password - Only Create */}
       {!initialData && (
         <div>
-          <label className="block text-sm font-medium text-stone-700 mb-2">
+          <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
             Password
           </label>
 
@@ -137,14 +137,14 @@ function TeacherForm({
             placeholder="Enter password"
             required
             minLength="6"
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
         </div>
       )}
 
       {/* Employee ID */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Employee ID
         </label>
 
@@ -155,13 +155,13 @@ function TeacherForm({
           onChange={handleChange}
           placeholder="e.g. EMP001"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Department */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Department
         </label>
 
@@ -171,7 +171,7 @@ function TeacherForm({
           onChange={handleChange}
           required
           disabled={loadingDepartments}
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 bg-white focus:outline-none dark:bg-slate-800 focus:ring-2 focus:ring-amber-500"
         >
           <option value="">
             {loadingDepartments
@@ -192,7 +192,7 @@ function TeacherForm({
 
       {/* Designation */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Designation
         </label>
 
@@ -203,13 +203,13 @@ function TeacherForm({
           onChange={handleChange}
           placeholder="e.g. Assistant Professor"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Highest Qualification */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Highest Qualification
         </label>
 
@@ -220,13 +220,13 @@ function TeacherForm({
           onChange={handleChange}
           placeholder="e.g. M.Tech, PhD"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Joining Date */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Joining Date
         </label>
 
@@ -236,7 +236,7 @@ function TeacherForm({
           value={formData.joiningDate}
           onChange={handleChange}
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
@@ -245,7 +245,7 @@ function TeacherForm({
 
         {/* Primary Phone */}
         <div>
-          <label className="block text-sm font-medium text-stone-700 mb-2">
+          <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
             Primary Phone
           </label>
 
@@ -256,13 +256,13 @@ function TeacherForm({
             onChange={handleChange}
             placeholder="Enter primary phone"
             required
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
         </div>
 
         {/* Alternate Phone */}
         <div>
-          <label className="block text-sm font-medium text-stone-700 mb-2">
+          <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
             Alternate Phone
           </label>
 
@@ -272,7 +272,7 @@ function TeacherForm({
             value={formData.alternatePhone}
             onChange={handleChange}
             placeholder="Optional"
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
         </div>
 

@@ -5,7 +5,9 @@ import {
   FaHistory,
   FaSignOutAlt,
   FaArrowRight,
+  FaChartPie,
 } from "react-icons/fa";
+import ThemeToggle from "../../components/ui/ThemeToggle";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -41,6 +43,17 @@ function Dashboard() {
         "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-[0_4px_14px_-6px_rgb(14_165_233/0.5)] hover:shadow-[0_8px_20px_-8px_rgb(14_165_233/0.6)]",
       glow: "bg-sky-500/20",
     },
+    {
+      title: "Attendance Report",
+      description:
+        "Visualize your attendance percentage per subject with charts and performance insights.",
+      navigateTo: "/student/attendance-report",
+      icon: <FaChartPie />,
+      gradient: "from-violet-500 to-purple-600",
+      buttonClass:
+        "bg-gradient-to-r from-violet-500 to-purple-600 text-white shadow-[0_4px_14px_-6px_rgb(139_92_246/0.5)] hover:shadow-[0_8px_20px_-8px_rgb(139_92_246/0.6)]",
+      glow: "bg-violet-500/20",
+    },
   ];
 
   return (
@@ -67,24 +80,28 @@ function Dashboard() {
               </p>
             </div>
 
-            <button
-              onClick={handleLogout}
-              className="inline-flex items-center justify-center gap-2 self-start rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
-            >
-              <FaSignOutAlt />
-              Logout
-            </button>
+            <div className="flex items-center gap-3 self-start">
+              <ThemeToggle className="border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20" />
+
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
+              >
+                <FaSignOutAlt />
+                Logout
+              </button>
+            </div>
           </div>
         </div>
 
         {/* ================= ATTENDANCE ACTIONS ================= */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {actions.map((action) => (
             <button
               key={action.title}
               type="button"
               onClick={() => navigate(action.navigateTo)}
-              className="group relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white p-8 text-left shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+              className="group relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white p-8 text-left shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover dark:border-slate-800 dark:bg-slate-900"
             >
               <div
                 className={`pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full ${action.glow} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100`}
@@ -96,11 +113,11 @@ function Dashboard() {
                 {action.icon}
               </div>
 
-              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {action.title}
               </h2>
 
-              <p className="mt-2 mb-8 text-sm leading-relaxed text-slate-500">
+              <p className="mt-2 mb-8 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
                 {action.description}
               </p>
 

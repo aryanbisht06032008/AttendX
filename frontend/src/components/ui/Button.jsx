@@ -22,15 +22,15 @@ function Button({
       "bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-glow-sm hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0",
 
     secondary:
-      "border border-slate-200 bg-white text-slate-700 shadow-soft hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900",
+      "border border-slate-200 bg-white text-slate-700 shadow-soft hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-700 dark:hover:text-white",
 
     outline:
-      "border border-amber-200 bg-white text-amber-700 hover:border-amber-300 hover:bg-amber-50",
+      "border border-amber-200 bg-white text-amber-700 hover:border-amber-300 hover:bg-amber-50 dark:border-amber-500/40 dark:bg-transparent dark:text-amber-300 dark:hover:border-amber-400/60 dark:hover:bg-amber-500/10",
 
     danger:
       "bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-[0_4px_14px_-6px_rgb(225_29_72/0.5)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-8px_rgb(225_29_72/0.55)] active:translate-y-0",
 
-    ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+    ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
   };
 
   return (

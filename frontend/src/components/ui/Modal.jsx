@@ -20,17 +20,17 @@ function Modal({
 
       {/* Panel */}
       <div
-        className={`relative z-10 flex max-h-[90vh] w-full ${maxWidth} animate-scale-in flex-col overflow-hidden rounded-3xl bg-white shadow-2xl`}
+        className={`relative z-10 flex max-h-[90vh] w-full ${maxWidth} animate-scale-in flex-col overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-slate-900`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-7 py-6">
+        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-7 py-6 dark:border-slate-800 dark:from-slate-800/60 dark:to-slate-900">
           <div>
-            <h2 className="font-display text-xl font-bold tracking-tight text-slate-900">
+            <h2 className="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">
               {title}
             </h2>
             {subtitle && (
-              <p className="mt-0.5 text-sm text-slate-500">{subtitle}</p>
+              <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>
             )}
           </div>
 
@@ -38,7 +38,7 @@ function Modal({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-800"
+            className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-800 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200"
           >
             <svg
               className="h-5 w-5"

@@ -186,11 +186,11 @@ function Students() {
             <div className="flex justify-between items-center mb-8">
 
                 <div>
-                    <h1 className="text-4xl font-bold text-stone-800">
+                    <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
                         Students
                     </h1>
 
-                    <p className="text-stone-500 mt-2">
+                    <p className="text-stone-500 dark:text-slate-400 mt-2">
                         Manage students
                     </p>
                 </div>
@@ -247,7 +247,7 @@ function Students() {
                     <FaSearch
                         className="absolute left-5 top-1/2
                         -translate-y-1/2
-                        text-stone-400 text-lg"
+                        text-stone-400 dark:text-slate-500 text-lg"
                     />
 
                     <input
@@ -258,11 +258,11 @@ function Students() {
                             setSearch(e.target.value)
                         }
                         className="w-full
-                        bg-stone-50
-                        border border-stone-200
+                        bg-stone-50 dark:bg-slate-800
+                        border border-stone-200 dark:border-slate-700
                         rounded-2xl
                         pl-14 pr-5 py-4
-                        text-stone-700
+                        text-stone-700 dark:text-slate-200
                         focus:outline-none
                         focus:ring-2
                         focus:ring-amber-500"
@@ -289,7 +289,7 @@ function Students() {
                         <tr>
                             <td
                                 colSpan="6"
-                                className="text-center py-10 text-stone-500"
+                                className="text-center py-10 text-stone-500 dark:text-slate-400"
                             >
                                 Loading students...
                             </td>
@@ -311,11 +311,11 @@ function Students() {
 
                                     </div>
 
-                                    <h3 className="text-2xl font-semibold text-stone-800">
+                                    <h3 className="text-2xl font-semibold text-stone-800 dark:text-slate-100">
                                         No Students Yet
                                     </h3>
 
-                                    <p className="text-stone-500 mt-2">
+                                    <p className="text-stone-500 dark:text-slate-400 mt-2">
                                         Add your first student to the system.
                                     </p>
 
@@ -330,7 +330,7 @@ function Students() {
 
                             <tr
                                 key={student.userId}
-                                className="hover:bg-stone-50 transition"
+                                className="hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800 transition"
                             >
 
                                 {/* Student */}
@@ -339,11 +339,11 @@ function Students() {
 
                                     <div>
 
-                                        <p className="font-semibold text-stone-800">
+                                        <p className="font-semibold text-stone-800 dark:text-slate-100">
                                             {student.user?.name}
                                         </p>
 
-                                        <p className="text-sm text-stone-500">
+                                        <p className="text-sm text-stone-500 dark:text-slate-400">
                                             {student.user?.email}
                                         </p>
 
@@ -354,21 +354,21 @@ function Students() {
 
                                 {/* Enrollment */}
 
-                                <td className="px-6 py-5 text-stone-600">
+                                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                                     {student.enrollmentNumber}
                                 </td>
 
 
                                 {/* Program */}
 
-                                <td className="px-6 py-5 text-stone-600">
+                                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                                     {student.program?.name || "—"}
                                 </td>
 
 
                                 {/* Section */}
 
-                                <td className="px-6 py-5 text-stone-600">
+                                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                                     {student.section?.name || "—"}
                                 </td>
 
@@ -379,13 +379,13 @@ function Students() {
 
                                     {student.isActive ? (
 
-                                        <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+                                        <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300 text-sm font-medium">
                                             Active
                                         </span>
 
                                     ) : (
 
-                                        <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
+                                        <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300 text-sm font-medium">
                                             Inactive
                                         </span>
 
@@ -402,7 +402,7 @@ function Students() {
                                         onClick={() =>
                                             handleEditStudent(student)
                                         }
-                                        className="px-4 py-2 rounded-xl bg-amber-100 text-amber-700 font-medium hover:bg-amber-200"
+                                        className="px-4 py-2 rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 font-medium hover:bg-amber-200"
                                     >
                                         Edit
                                     </button>

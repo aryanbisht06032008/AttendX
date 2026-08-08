@@ -1,6 +1,7 @@
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaSignOutAlt, FaBars, FaRegBell } from "react-icons/fa";
+import ThemeToggle from "../ui/ThemeToggle";
 
 const PAGE_TITLES = {
   "/admin": "Dashboard",
@@ -37,7 +38,7 @@ function Navbar({ onMenuClick }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-900/80">
       <div className="flex min-h-[76px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* LEFT */}
         <div className="flex items-center gap-3">
@@ -46,7 +47,7 @@ function Navbar({ onMenuClick }) {
             type="button"
             onClick={onMenuClick}
             aria-label="Open menu"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 hover:text-slate-900 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 hover:text-slate-900 lg:hidden dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
           >
             <FaBars />
           </button>
@@ -55,7 +56,7 @@ function Navbar({ onMenuClick }) {
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-amber-600">
               AttendX Admin
             </p>
-            <h2 className="mt-0.5 font-display text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">
+            <h2 className="mt-0.5 font-display text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
               {pageTitle}
             </h2>
           </div>
@@ -63,11 +64,14 @@ function Navbar({ onMenuClick }) {
 
         {/* RIGHT */}
         <div className="flex items-center gap-3 sm:gap-4">
+          {/* Theme toggle */}
+          <ThemeToggle />
+
           {/* Notifications */}
           <button
             type="button"
             title="Notifications"
-            className="relative hidden h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50 hover:text-slate-800 sm:flex"
+            className="relative hidden h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50 hover:text-slate-800 sm:flex dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
           >
             <FaRegBell />
             <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-amber-500 ring-2 ring-white" />
@@ -84,7 +88,7 @@ function Navbar({ onMenuClick }) {
             </span>
           </div>
 
-          <div className="hidden h-10 w-px bg-slate-200 sm:block" />
+          <div className="hidden h-10 w-px bg-slate-200 sm:block dark:bg-slate-800" />
 
           {/* User */}
           <div className="flex items-center gap-3">
@@ -93,7 +97,7 @@ function Navbar({ onMenuClick }) {
             </div>
 
             <div className="hidden sm:block">
-              <p className="max-w-[180px] truncate text-sm font-bold text-slate-800">
+              <p className="max-w-[180px] truncate text-sm font-bold text-slate-800 dark:text-slate-100">
                 {userName}
               </p>
               <span
@@ -109,7 +113,7 @@ function Navbar({ onMenuClick }) {
             type="button"
             onClick={handleLogout}
             title="Logout"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-600 transition hover:bg-rose-100 hover:text-rose-700"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-600 transition hover:bg-rose-100 hover:text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-400 dark:hover:bg-rose-500/20 dark:hover:text-rose-300"
           >
             <FaSignOutAlt />
           </button>

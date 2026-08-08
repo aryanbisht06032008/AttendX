@@ -1,11 +1,11 @@
 function Table({ columns, children, className = "" }) {
   return (
     <div
-      className={`overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-soft ${className}`}
+      className={`overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900 ${className}`}
     >
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="sticky top-0 bg-slate-50/90 backdrop-blur">
+          <thead className="sticky top-0 bg-slate-50/90 backdrop-blur dark:bg-slate-800/60">
             <tr>
               {columns.map((column) => (
                 <th

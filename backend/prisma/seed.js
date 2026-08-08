@@ -125,26 +125,8 @@ async function main() {
     where: { code: "IT" },
   });
 
-  const btechCourse = await prisma.course.findUnique({
-    where: { code: "BTECH" },
-  });
-
-  const bcaCourse = await prisma.course.findUnique({
-    where: { code: "BCA" },
-  });
-
-  const mcaCourse = await prisma.course.findUnique({
-    where: { code: "MCA" },
-  });
-
-  if (
-    !cseDepartment ||
-    !itDepartment ||
-    !btechCourse ||
-    !bcaCourse ||
-    !mcaCourse
-  ) {
-    throw new Error("Departments or Courses not found.");
+  if (!cseDepartment || !itDepartment) {
+    throw new Error("Departments not found.");
   }
 
   // ==========================================
@@ -156,29 +138,29 @@ async function main() {
       name: "Bachelor of Technology - Computer Science & Engineering",
       code: "BTECH-CSE",
       departmentId: cseDepartment.id,
-      courseId: btechCourse.id,
-      totalSeats: 120,
+      duration: 4,
+      semesters: 8,
     },
     {
       name: "Bachelor of Technology - Information Technology",
       code: "BTECH-IT",
       departmentId: itDepartment.id,
-      courseId: btechCourse.id,
-      totalSeats: 60,
+      duration: 4,
+      semesters: 8,
     },
     {
       name: "Bachelor of Computer Applications",
       code: "BCA",
       departmentId: cseDepartment.id,
-      courseId: bcaCourse.id,
-      totalSeats: 120,
+      duration: 3,
+      semesters: 6,
     },
     {
       name: "Master of Computer Applications",
       code: "MCA",
       departmentId: cseDepartment.id,
-      courseId: mcaCourse.id,
-      totalSeats: 60,
+      duration: 2,
+      semesters: 4,
     },
   ];
 

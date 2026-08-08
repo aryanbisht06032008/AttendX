@@ -67,7 +67,7 @@ function DepartmentForm({
     >
       {/* Department Name */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Department Name
         </label>
 
@@ -78,13 +78,13 @@ function DepartmentForm({
           onChange={handleChange}
           placeholder="Enter department name"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Department Code */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Department Code
         </label>
 
@@ -95,13 +95,13 @@ function DepartmentForm({
           onChange={handleChange}
           placeholder="e.g. CSE"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Description
         </label>
 
@@ -111,7 +111,7 @@ function DepartmentForm({
           onChange={handleChange}
           placeholder="Enter department description"
           rows="4"
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 

@@ -168,11 +168,11 @@ function Sections() {
       <div className="flex justify-between items-center mb-8">
 
         <div>
-          <h1 className="text-4xl font-bold text-stone-800">
+          <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
             Sections
           </h1>
 
-          <p className="text-stone-500 mt-2">
+          <p className="text-stone-500 dark:text-slate-400 mt-2">
             Manage program sections and batches
           </p>
         </div>
@@ -222,7 +222,7 @@ function Sections() {
         <div className="relative mb-6">
 
           <FaSearch
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400"
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-slate-500"
           />
 
           <input
@@ -232,7 +232,7 @@ function Sections() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            className="w-full bg-stone-50 border border-stone-200 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
 
         </div>
@@ -276,11 +276,11 @@ function Sections() {
 
                   </div>
 
-                  <h3 className="text-2xl font-semibold text-stone-800">
+                  <h3 className="text-2xl font-semibold text-stone-800 dark:text-slate-100">
                     No Sections Yet
                   </h3>
 
-                  <p className="text-stone-500 mt-2">
+                  <p className="text-stone-500 dark:text-slate-400 mt-2">
                     Create your first section.
                   </p>
 
@@ -297,23 +297,23 @@ function Sections() {
 
                 <tr
                   key={section.id}
-                  className="hover:bg-stone-50 transition"
+                  className="hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800 transition"
                 >
 
-                  <td className="px-6 py-5 font-semibold text-stone-800">
+                  <td className="px-6 py-5 font-semibold text-stone-800 dark:text-slate-100">
                     {section.name}
                   </td>
 
-                  <td className="px-6 py-5 text-stone-600">
+                  <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                     {section.program?.name ||
                       "—"}
                   </td>
 
-                  <td className="px-6 py-5 text-stone-600">
+                  <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                     {section.batchYear}
                   </td>
 
-                  <td className="px-6 py-5 text-stone-600">
+                  <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                     {section.maxStrength}
                   </td>
 
@@ -321,13 +321,13 @@ function Sections() {
 
                     {section.isActive ? (
 
-                      <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+                      <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300 text-sm font-medium">
                         Active
                       </span>
 
                     ) : (
 
-                      <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
+                      <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300 text-sm font-medium">
                         Inactive
                       </span>
 
@@ -366,7 +366,7 @@ function Sections() {
           {/* Program */}
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Program
             </label>
 
@@ -379,7 +379,7 @@ function Sections() {
                 handleChange
               }
               required
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white focus:outline-none dark:bg-slate-800 focus:ring-2 focus:ring-amber-500"
             >
 
               <option value="">
@@ -407,7 +407,7 @@ function Sections() {
           {/* Section Name */}
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Section Name
             </label>
 
@@ -422,7 +422,7 @@ function Sections() {
               }
               placeholder="e.g. A"
               required
-              className="w-full border border-stone-300 rounded-xl px-4 py-3"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3"
             />
 
           </div>
@@ -431,7 +431,7 @@ function Sections() {
           {/* Batch Year */}
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Batch Year
             </label>
 
@@ -447,7 +447,7 @@ function Sections() {
               placeholder="e.g. 2025"
               min="2000"
               required
-              className="w-full border border-stone-300 rounded-xl px-4 py-3"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3"
             />
 
           </div>
@@ -456,7 +456,7 @@ function Sections() {
           {/* Maximum Strength */}
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Maximum Strength
             </label>
 
@@ -472,7 +472,7 @@ function Sections() {
               placeholder="e.g. 60"
               min="1"
               required
-              className="w-full border border-stone-300 rounded-xl px-4 py-3"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3"
             />
 
           </div>

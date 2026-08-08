@@ -114,7 +114,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
       ========================= */}
       <div>
 
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Program Name
         </label>
 
@@ -125,7 +125,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
           onChange={handleChange}
           placeholder="e.g. Bachelor of Computer Applications"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
 
       </div>
@@ -135,7 +135,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
       ========================= */}
       <div>
 
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Program Code
         </label>
 
@@ -146,7 +146,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
           onChange={handleChange}
           placeholder="e.g. BCA"
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 uppercase focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
 
       </div>
@@ -156,7 +156,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
       ========================= */}
       <div>
 
-        <label className="block text-sm font-medium text-stone-700 mb-2">
+        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
           Department
         </label>
 
@@ -165,7 +165,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
           value={formData.departmentId}
           onChange={handleChange}
           required
-          className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 bg-white focus:outline-none dark:bg-slate-800 focus:ring-2 focus:ring-amber-500"
         >
 
           <option value="">
@@ -198,7 +198,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
         {/* Duration */}
         <div>
 
-          <label className="block text-sm font-medium text-stone-700 mb-2">
+          <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
             Duration (Years)
           </label>
 
@@ -211,7 +211,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
             max="10"
             placeholder="3"
             required
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
 
         </div>
@@ -219,7 +219,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
         {/* Semesters */}
         <div>
 
-          <label className="block text-sm font-medium text-stone-700 mb-2">
+          <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
             Semesters
           </label>
 
@@ -232,7 +232,7 @@ function ProgramForm({ onSubmit, initialData = null }) {
             max="20"
             placeholder="6"
             required
-            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
 
         </div>

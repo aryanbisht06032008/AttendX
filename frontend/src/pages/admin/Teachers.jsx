@@ -228,11 +228,11 @@ function Teachers() {
 
         <div>
 
-          <h1 className="text-4xl font-bold text-stone-800">
+          <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
             Teachers
           </h1>
 
-          <p className="text-stone-500 mt-2">
+          <p className="text-stone-500 dark:text-slate-400 mt-2">
             Manage teachers and faculty members
           </p>
 
@@ -298,7 +298,7 @@ function Teachers() {
           <FaSearch
             className="absolute left-5 top-1/2
             -translate-y-1/2
-            text-stone-400 text-lg"
+            text-stone-400 dark:text-slate-500 text-lg"
           />
 
           <input
@@ -309,8 +309,8 @@ function Teachers() {
               setSearch(e.target.value)
             }
             className="w-full
-            bg-stone-50
-            border border-stone-200
+            bg-stone-50 dark:bg-slate-800
+            border border-stone-200 dark:border-slate-700
             rounded-2xl
             pl-14 pr-5 py-4
             focus:outline-none
@@ -342,7 +342,7 @@ function Teachers() {
 
               <td
                 colSpan="6"
-                className="text-center py-16 text-stone-500"
+                className="text-center py-16 text-stone-500 dark:text-slate-400"
               >
 
                 Loading teachers...
@@ -389,7 +389,7 @@ function Teachers() {
                     <h3
                       className="text-2xl
                     font-semibold
-                    text-stone-800"
+                    text-stone-800 dark:text-slate-100"
                     >
 
                       No Teachers Yet
@@ -397,7 +397,7 @@ function Teachers() {
                     </h3>
 
 
-                    <p className="text-stone-500 mt-2">
+                    <p className="text-stone-500 dark:text-slate-400 mt-2">
 
                       Add your first teacher
                       to the system.
@@ -422,7 +422,7 @@ function Teachers() {
 
                     <tr
                       key={teacher.userId}
-                      className="hover:bg-stone-50 transition"
+                      className="hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800 transition"
                     >
 
                       {/* NAME */}
@@ -430,7 +430,7 @@ function Teachers() {
                       <td
                         className="px-6 py-5
                     font-medium
-                    text-stone-800"
+                    text-stone-800 dark:text-slate-100"
                       >
 
                         {teacher.user?.name || "—"}
@@ -442,7 +442,7 @@ function Teachers() {
 
                       <td
                         className="px-6 py-5
-                    text-stone-600"
+                    text-stone-600 dark:text-slate-300"
                       >
 
                         {teacher.employeeId || "—"}
@@ -454,7 +454,7 @@ function Teachers() {
 
                       <td
                         className="px-6 py-5
-                    text-stone-600"
+                    text-stone-600 dark:text-slate-300"
                       >
 
                         {teacher.user?.email || "—"}
@@ -466,7 +466,7 @@ function Teachers() {
 
                       <td
                         className="px-6 py-5
-                    text-stone-600"
+                    text-stone-600 dark:text-slate-300"
                       >
 
                         {teacher.department?.name || "—"}
@@ -482,9 +482,7 @@ function Teachers() {
 
                           <span
                             className="px-3 py-1
-                        rounded-full
-                        bg-green-100
-                        text-green-700
+                        rounded-fullbg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300
                         text-sm
                         font-medium"
                           >
@@ -497,9 +495,7 @@ function Teachers() {
 
                           <span
                             className="px-3 py-1
-                        rounded-full
-                        bg-red-100
-                        text-red-700
+                        rounded-fullbg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300
                         text-sm
                         font-medium"
                           >
@@ -535,10 +531,7 @@ function Teachers() {
 
                             }}
                             className="w-10 h-10
-                        rounded-xl
-                        bg-amber-100
-                        text-amber-700
-                        hover:bg-amber-200
+                        rounded-xlbg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:hover:bg-amber-500/25
                         transition
                         flex items-center
                         justify-center"
@@ -568,10 +561,7 @@ function Teachers() {
                               !teacher.isActive
                             }
                             className="w-10 h-10
-                        rounded-xl
-                        bg-red-100
-                        text-red-600
-                        hover:bg-red-200
+                        rounded-xlbg-red-100 text-red-600 hover:bg-red-200 dark:bg-rose-500/15 dark:text-rose-400 dark:hover:bg-rose-500/25
                         transition
                         flex items-center
                         justify-center

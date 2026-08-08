@@ -63,11 +63,11 @@ function Users() {
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-stone-800">
+        <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
           Users
         </h1>
 
-        <p className="text-stone-500 mt-2">
+        <p className="text-stone-500 dark:text-slate-400 mt-2">
           Manage all users of AttendX
         </p>
       </div>
@@ -107,14 +107,14 @@ function Users() {
         {/* Search */}
         <div className="relative mb-6">
 
-          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400" />
+          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-slate-500" />
 
           <input
             type="text"
             placeholder="Search users by name or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-stone-50 border border-stone-200 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
 
         </div>
@@ -133,7 +133,7 @@ function Users() {
             <tr>
               <td
                 colSpan="4"
-                className="text-center py-16 text-stone-500"
+                className="text-center py-16 text-stone-500 dark:text-slate-400"
               >
                 Loading users...
               </td>
@@ -144,7 +144,7 @@ function Users() {
             <tr>
               <td
                 colSpan="4"
-                className="text-center py-16 text-stone-500"
+                className="text-center py-16 text-stone-500 dark:text-slate-400"
               >
                 No users found.
               </td>
@@ -156,24 +156,24 @@ function Users() {
 
               <tr
                 key={user.id}
-                className="hover:bg-stone-50 transition"
+                className="hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800 transition"
               >
 
                 <td className="px-6 py-5">
                   <div className="flex items-center gap-3">
 
-                    <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 flex items-center justify-center">
                       <FaUsers />
                     </div>
 
-                    <span className="font-medium text-stone-800">
+                    <span className="font-medium text-stone-800 dark:text-slate-100">
                       {user.name}
                     </span>
 
                   </div>
                 </td>
 
-                <td className="px-6 py-5 text-stone-600">
+                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                   {user.email}
                 </td>
 
@@ -182,10 +182,10 @@ function Users() {
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
                       user.role === "ADMIN"
-                        ? "bg-red-100 text-red-700"
+                        ? "bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300"
                         : user.role === "TEACHER"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-blue-100 text-blue-700"
+                        ? "bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300"
+                        : "bg-blue-100 text-blue-700 dark:bg-sky-500/15 dark:text-sky-300"
                     }`}
                   >
                     {user.role}
@@ -193,7 +193,7 @@ function Users() {
 
                 </td>
 
-                <td className="px-6 py-5 text-stone-500">
+                <td className="px-6 py-5 text-stone-500 dark:text-slate-400">
                   {user.createdAt
                     ? new Date(
                         user.createdAt

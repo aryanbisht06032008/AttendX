@@ -160,11 +160,11 @@ function TeacherAssignments() {
 
       <div className="mb-8">
 
-        <h1 className="text-4xl font-bold text-stone-800">
+        <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
           Teacher Assignments
         </h1>
 
-        <p className="text-stone-500 mt-2">
+        <p className="text-stone-500 dark:text-slate-400 mt-2">
           Assign teachers to subjects and sections.
         </p>
 
@@ -175,7 +175,7 @@ function TeacherAssignments() {
 
       <Card>
 
-        <h2 className="text-2xl font-semibold text-stone-800 mb-6">
+        <h2 className="text-2xl font-semibold text-stone-800 dark:text-slate-100 mb-6">
           Create Teacher Assignment
         </h2>
 
@@ -188,7 +188,7 @@ function TeacherAssignments() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Teacher
             </label>
 
@@ -197,7 +197,7 @@ function TeacherAssignments() {
               onChange={(e) =>
                 setTeacherId(e.target.value)
               }
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white dark:bg-slate-800"
             >
 
               <option value="">
@@ -230,7 +230,7 @@ function TeacherAssignments() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Subject
             </label>
 
@@ -239,7 +239,7 @@ function TeacherAssignments() {
               onChange={(e) =>
                 setSubjectId(e.target.value)
               }
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white dark:bg-slate-800"
             >
 
               <option value="">
@@ -266,7 +266,7 @@ function TeacherAssignments() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Section
             </label>
 
@@ -275,7 +275,7 @@ function TeacherAssignments() {
               onChange={(e) =>
                 setSectionId(e.target.value)
               }
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white dark:bg-slate-800"
             >
 
               <option value="">
@@ -322,19 +322,19 @@ function TeacherAssignments() {
 
       <Card className="mt-8">
 
-        <h2 className="text-2xl font-semibold text-stone-800 mb-6">
+        <h2 className="text-2xl font-semibold text-stone-800 dark:text-slate-100 mb-6">
           Current Assignments
         </h2>
 
         {loading ? (
 
-          <p className="text-stone-500">
+          <p className="text-stone-500 dark:text-slate-400">
             Loading assignments...
           </p>
 
         ) : assignments.length === 0 ? (
 
-          <p className="text-stone-500">
+          <p className="text-stone-500 dark:text-slate-400">
             No teacher assignments found.
           </p>
 
@@ -375,7 +375,7 @@ function TeacherAssignments() {
 
                     <tr
                       key={assignment.id}
-                      className="border-b hover:bg-stone-50"
+                      className="border-b hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800"
                     >
 
                       <td className="px-4 py-4">
@@ -407,7 +407,7 @@ function TeacherAssignments() {
                               assignment.id
                             )
                           }
-                          className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200"
+                          className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 dark:bg-rose-500/15 dark:text-rose-400 dark:hover:bg-rose-500/25"
                         >
                           Remove
                         </button>

@@ -164,11 +164,11 @@ function Subjects() {
 
       <div className="mb-8">
 
-        <h1 className="text-4xl font-bold text-stone-800">
+        <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
           Subjects
         </h1>
 
-        <p className="text-stone-500 mt-2">
+        <p className="text-stone-500 dark:text-slate-400 mt-2">
           Create and manage subjects for your academic programs.
         </p>
 
@@ -179,7 +179,7 @@ function Subjects() {
 
       <Card>
 
-        <h2 className="text-2xl font-semibold text-stone-800 mb-6">
+        <h2 className="text-2xl font-semibold text-stone-800 dark:text-slate-100 mb-6">
           Create Subject
         </h2>
 
@@ -192,7 +192,7 @@ function Subjects() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Semester
             </label>
 
@@ -201,7 +201,7 @@ function Subjects() {
               onChange={(e) =>
                 setSemesterId(e.target.value)
               }
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white dark:bg-slate-800"
             >
 
               <option value="">
@@ -231,7 +231,7 @@ function Subjects() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Subject Name
             </label>
 
@@ -242,7 +242,7 @@ function Subjects() {
                 setName(e.target.value)
               }
               placeholder="e.g. Data Structures"
-              className="w-full border border-stone-300 rounded-xl px-4 py-3"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3"
             />
 
           </div>
@@ -252,7 +252,7 @@ function Subjects() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Subject Code
             </label>
 
@@ -265,7 +265,7 @@ function Subjects() {
                 )
               }
               placeholder="e.g. CS101"
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 uppercase"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 uppercase"
             />
 
           </div>
@@ -275,7 +275,7 @@ function Subjects() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Credits
             </label>
 
@@ -288,7 +288,7 @@ function Subjects() {
                 setCredits(e.target.value)
               }
               placeholder="e.g. 4"
-              className="w-full border border-stone-300 rounded-xl px-4 py-3"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3"
             />
 
           </div>
@@ -298,7 +298,7 @@ function Subjects() {
 
           <div>
 
-            <label className="block text-sm font-medium text-stone-700 mb-2">
+            <label className="block text-sm font-medium text-stone-700 dark:text-slate-200 mb-2">
               Subject Type
             </label>
 
@@ -307,7 +307,7 @@ function Subjects() {
               onChange={(e) =>
                 setType(e.target.value)
               }
-              className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white"
+              className="w-full border border-stone-300 dark:border-slate-700 rounded-xl px-4 py-3 bg-white dark:bg-slate-800"
             >
 
               <option value="">
@@ -355,19 +355,19 @@ function Subjects() {
 
       <Card className="mt-8">
 
-        <h2 className="text-2xl font-semibold text-stone-800 mb-6">
+        <h2 className="text-2xl font-semibold text-stone-800 dark:text-slate-100 mb-6">
           Existing Subjects
         </h2>
 
         {loading ? (
 
-          <p className="text-stone-500">
+          <p className="text-stone-500 dark:text-slate-400">
             Loading subjects...
           </p>
 
         ) : subjects.length === 0 ? (
 
-          <p className="text-stone-500">
+          <p className="text-stone-500 dark:text-slate-400">
             No subjects found.
           </p>
 
@@ -420,7 +420,7 @@ function Subjects() {
 
                     <tr
                       key={subject.id}
-                      className="border-b hover:bg-stone-50"
+                      className="border-b hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800"
                     >
 
                       <td className="px-4 py-4 font-medium">
@@ -457,7 +457,7 @@ function Subjects() {
                               subject.id
                             )
                           }
-                          className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200"
+                          className="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 dark:bg-rose-500/15 dark:text-rose-400 dark:hover:bg-rose-500/25"
                         >
                           Delete
                         </button>

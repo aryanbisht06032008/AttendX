@@ -167,11 +167,11 @@ function Programs() {
       <div className="flex justify-between items-center mb-8">
 
         <div>
-          <h1 className="text-4xl font-bold text-stone-800">
+          <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
             Programs
           </h1>
 
-          <p className="text-stone-500 mt-2">
+          <p className="text-stone-500 dark:text-slate-400 mt-2">
             Manage academic programs
           </p>
         </div>
@@ -220,7 +220,7 @@ function Programs() {
         {/* Search */}
         <div className="relative mb-6">
 
-          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 text-lg" />
+          <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-slate-500 text-lg" />
 
           <input
             type="text"
@@ -229,7 +229,7 @@ function Programs() {
             onChange={(e) =>
               setSearch(e.target.value)
             }
-            className="w-full bg-stone-50 border border-stone-200 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-2xl pl-14 pr-5 py-4 focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
 
         </div>
@@ -252,7 +252,7 @@ function Programs() {
             <tr>
               <td
                 colSpan="7"
-                className="text-center py-16 text-stone-500"
+                className="text-center py-16 text-stone-500 dark:text-slate-400"
               >
                 Loading programs...
               </td>
@@ -276,11 +276,11 @@ function Programs() {
 
                   </div>
 
-                  <h3 className="text-2xl font-semibold text-stone-800">
+                  <h3 className="text-2xl font-semibold text-stone-800 dark:text-slate-100">
                     No Programs Yet
                   </h3>
 
-                  <p className="text-stone-500 mt-2">
+                  <p className="text-stone-500 dark:text-slate-400 mt-2">
                     Create your first academic program.
                   </p>
 
@@ -297,26 +297,26 @@ function Programs() {
 
               <tr
                 key={program.id}
-                className="hover:bg-stone-50 transition"
+                className="hover:bg-stone-50 dark:hover:bg-slate-800/60 dark:bg-slate-800 transition"
               >
 
-                <td className="px-6 py-5 font-medium text-stone-800">
+                <td className="px-6 py-5 font-medium text-stone-800 dark:text-slate-100">
                   {program.name}
                 </td>
 
-                <td className="px-6 py-5 text-stone-600">
+                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                   {program.code}
                 </td>
 
-                <td className="px-6 py-5 text-stone-600">
+                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                   {program.department?.name || "—"}
                 </td>
 
-                <td className="px-6 py-5 text-stone-600">
+                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                   {program.duration} Years
                 </td>
 
-                <td className="px-6 py-5 text-stone-600">
+                <td className="px-6 py-5 text-stone-600 dark:text-slate-300">
                   {program.semesters}
                 </td>
 
@@ -324,13 +324,13 @@ function Programs() {
 
                   {program.isActive ? (
 
-                    <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+                    <span className="px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300 text-sm font-medium">
                       Active
                     </span>
 
                   ) : (
 
-                    <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm font-medium">
+                    <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300 text-sm font-medium">
                       Inactive
                     </span>
 
@@ -348,7 +348,7 @@ function Programs() {
                       onClick={() =>
                         setEditingProgram(program)
                       }
-                      className="px-4 py-2 rounded-xl bg-amber-100 text-amber-700 font-medium hover:bg-amber-200"
+                      className="px-4 py-2 rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 font-medium hover:bg-amber-200"
                     >
                       Edit
                     </button>
@@ -359,7 +359,7 @@ function Programs() {
                         onClick={() =>
                           handleDeleteProgram(program.id)
                         }
-                        className="px-4 py-2 rounded-xl bg-red-100 text-red-700 font-medium hover:bg-red-200"
+                        className="px-4 py-2 rounded-xl bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300 font-medium hover:bg-red-200"
                       >
                         Deactivate
                       </button>

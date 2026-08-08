@@ -216,11 +216,11 @@ function Departments() {
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-8">
 
         <div>
-          <h1 className="text-4xl font-bold text-stone-800">
+          <h1 className="text-4xl font-bold text-stone-800 dark:text-slate-100">
             Departments
           </h1>
 
-          <p className="text-stone-500 mt-2">
+          <p className="text-stone-500 dark:text-slate-400 mt-2">
             Manage all departments
           </p>
         </div>
@@ -266,7 +266,7 @@ function Departments() {
         <div className="relative mb-6">
 
           <FaSearch
-            className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 text-lg"
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-slate-500 text-lg"
           />
 
           <input
@@ -276,7 +276,7 @@ function Departments() {
             onChange={(event) =>
               setSearch(event.target.value)
             }
-            className="w-full bg-stone-50 border border-stone-200 rounded-2xl pl-14 pr-5 py-4 text-stone-700 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
+            className="w-full bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 rounded-2xl pl-14 pr-5 py-4 text-stone-700 dark:text-slate-200 placeholder:text-stone-400 dark:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
           />
 
         </div>
@@ -296,7 +296,7 @@ function Departments() {
             <tr>
               <td
                 colSpan="3"
-                className="text-center py-10 text-stone-500"
+                className="text-center py-10 text-stone-500 dark:text-slate-400"
               >
                 Loading departments...
               </td>
@@ -316,11 +316,11 @@ function Departments() {
                     <FaBuilding className="text-amber-700" />
                   </div>
 
-                  <h3 className="text-2xl font-semibold text-stone-800">
+                  <h3 className="text-2xl font-semibold text-stone-800 dark:text-slate-100">
                     No Departments Found
                   </h3>
 
-                  <p className="text-stone-500 mt-2 text-center max-w-sm">
+                  <p className="text-stone-500 dark:text-slate-400 mt-2 text-center max-w-sm">
                     We couldn't find any departments matching your search.
                     Try a different keyword or create a new department.
                   </p>
@@ -347,7 +347,7 @@ function Departments() {
 
                 <tr
                   key={department.id}
-                  className="group transition-all duration-200 hover:bg-amber-50"
+                  className="group transition-all duration-200 hover:bg-amber-50 dark:hover:bg-amber-500/10"
                 >
 
                   {/* Department */}
@@ -355,17 +355,17 @@ function Departments() {
 
                     <div className="flex items-center gap-4">
 
-                      <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 flex items-center justify-center">
                         <FaBuilding />
                       </div>
 
                       <div>
 
-                        <p className="font-semibold text-stone-800">
+                        <p className="font-semibold text-stone-800 dark:text-slate-100">
                           {department.name}
                         </p>
 
-                        <p className="text-sm text-stone-400">
+                        <p className="text-sm text-stone-400 dark:text-slate-500">
                           {department.code}
                         </p>
 
@@ -381,13 +381,13 @@ function Departments() {
 
                     {department.isActive ? (
 
-                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-semibold">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300 text-sm font-semibold">
                         Active
                       </span>
 
                     ) : (
 
-                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm font-semibold">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300 text-sm font-semibold">
                         Inactive
                       </span>
 
@@ -408,7 +408,7 @@ function Departments() {
                             department
                           )
                         }
-                        className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 hover:bg-amber-200 transition flex items-center justify-center"
+                        className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300 hover:bg-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:hover:bg-amber-50 dark:hover:bg-amber-500/100/25 transition flex items-center justify-center"
                         title="Edit Department"
                       >
                         <FaEdit />
@@ -421,7 +421,7 @@ function Departments() {
                             department
                           )
                         }
-                        className="w-10 h-10 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition flex items-center justify-center"
+                        className="w-10 h-10 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 dark:bg-rose-500/15 dark:text-rose-400 dark:hover:bg-rose-500/25 transition flex items-center justify-center"
                         title="Deactivate Department"
                       >
                         <FaTrash />

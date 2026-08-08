@@ -179,7 +179,7 @@ function StudentForm({
         >
             {/* Personal Information */}
             <div>
-                <h3 className="text-lg font-semibold text-stone-800 mb-4">
+                <h3 className="text-lg font-semibold text-stone-800 dark:text-slate-100 mb-4">
                     Personal Information
                 </h3>
 
@@ -187,7 +187,7 @@ function StudentForm({
 
                     {/* Name */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Student Name
                         </label>
 
@@ -198,13 +198,13 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="Enter student name"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Email */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Email
                         </label>
 
@@ -215,13 +215,13 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="student@example.com"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Password */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Password
                         </label>
 
@@ -237,13 +237,13 @@ function StudentForm({
                             }
                             required={!isEditing}
                             minLength="6"
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Date of Birth */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Date of Birth
                         </label>
 
@@ -253,7 +253,7 @@ function StudentForm({
                             value={formData.dateOfBirth}
                             onChange={handleChange}
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
@@ -262,7 +262,7 @@ function StudentForm({
 
             {/* Academic Information */}
             <div>
-                <h3 className="text-lg font-semibold text-stone-800 mb-4">
+                <h3 className="text-lg font-semibold text-stone-800 dark:text-slate-100 mb-4">
                     Academic Information
                 </h3>
 
@@ -270,7 +270,7 @@ function StudentForm({
 
                     {/* Program */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Program
                         </label>
 
@@ -280,7 +280,7 @@ function StudentForm({
                             onChange={handleChange}
                             required
                             disabled={loadingPrograms}
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 bg-white focus:outline-none dark:bg-slate-800 focus:ring-2 focus:ring-amber-500"
                         >
                             <option value="">
                                 {loadingPrograms
@@ -301,7 +301,7 @@ function StudentForm({
 
                     {/* Section */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Section
                         </label>
 
@@ -314,7 +314,7 @@ function StudentForm({
                                 !formData.programId ||
                                 loadingSections
                             }
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 bg-white focus:outline-none dark:bg-slate-800 focus:ring-2 focus:ring-amber-500"
                         >
                             <option value="">
                                 {!formData.programId
@@ -340,7 +340,7 @@ function StudentForm({
 
                     {/* Enrollment Number */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Enrollment Number
                         </label>
 
@@ -353,13 +353,13 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="e.g. ENR2025001"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Roll Number */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Roll Number
                         </label>
 
@@ -371,13 +371,13 @@ function StudentForm({
                             placeholder="e.g. 1"
                             required
                             min="1"
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Admission Year */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Admission Year
                         </label>
 
@@ -388,7 +388,7 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="e.g. 2025"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
@@ -397,7 +397,7 @@ function StudentForm({
 
             {/* Guardian Information */}
             <div>
-                <h3 className="text-lg font-semibold text-stone-800 mb-4">
+                <h3 className="text-lg font-semibold text-stone-800 dark:text-slate-100 mb-4">
                     Guardian Information
                 </h3>
 
@@ -405,7 +405,7 @@ function StudentForm({
 
                     {/* Guardian Name */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Guardian Name
                         </label>
 
@@ -416,13 +416,13 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="Enter guardian name"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
                     {/* Guardian Phone */}
                     <div>
-                        <label className="block text-sm font-medium text-stone-700 mb-2">
+                        <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                             Guardian Phone
                         </label>
 
@@ -435,7 +435,7 @@ function StudentForm({
                             onChange={handleChange}
                             placeholder="Enter guardian phone"
                             required
-                            className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                         />
                     </div>
 
@@ -444,7 +444,7 @@ function StudentForm({
 
             {/* Address */}
             <div>
-                <label className="block text-sm font-medium text-stone-700 mb-2">
+                <label className="block text-sm font-medium text-stone-700 dark:text-slate-300 mb-2">
                     Address
                 </label>
 
@@ -455,7 +455,7 @@ function StudentForm({
                     placeholder="Enter student's address"
                     required
                     rows="3"
-                    className="w-full border border-stone-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full border border-stone-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
             </div>
 

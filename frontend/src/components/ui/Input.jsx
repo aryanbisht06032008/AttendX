@@ -2,7 +2,7 @@ function Input({ label, required, error, icon, className = "", ...props }) {
   return (
     <div className={className}>
       {label && (
-        <label className="mb-2 block text-sm font-medium text-slate-700">
+        <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
           {label}
           {required && <span className="ml-0.5 text-rose-500">*</span>}
         </label>
@@ -18,7 +18,7 @@ function Input({ label, required, error, icon, className = "", ...props }) {
         <input
           {...props}
           required={required}
-          className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/15 ${
+          className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/15 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-amber-500 ${
             icon ? "pl-11" : ""
           } ${error ? "border-rose-400" : "border-slate-300"}`}
         />

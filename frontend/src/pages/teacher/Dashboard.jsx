@@ -4,6 +4,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
+import ThemeToggle from "../../components/ui/ThemeToggle";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -482,7 +483,7 @@ function Dashboard() {
             HEADER
         ===================================== */}
 
-        <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
 
           <div>
 
@@ -490,11 +491,11 @@ function Dashboard() {
               AttendX Teacher Portal
             </p>
 
-            <h1 className="mt-1 text-3xl font-bold text-gray-800">
+            <h1 className="mt-1 text-3xl font-bold text-gray-800 dark:text-slate-100">
               Teacher Dashboard
             </h1>
 
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-gray-600 dark:text-slate-300">
               Start an attendance session and display
               the QR code for students.
             </p>
@@ -503,15 +504,18 @@ function Dashboard() {
 
           <div className="flex items-center gap-4">
 
+            {/* Theme toggle */}
+            <ThemeToggle />
+
             {/* User Information */}
 
             <div className="hidden text-right sm:block">
 
-              <p className="font-semibold text-gray-800">
+              <p className="font-semibold text-gray-800 dark:text-slate-100">
                 {user?.name || "Teacher"}
               </p>
 
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-slate-400">
                 {user?.role || "TEACHER"}
               </p>
 
@@ -554,25 +558,25 @@ function Dashboard() {
         ===================================== */}
 
         {!session && (
-          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
+          <div className="rounded-2xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-6 shadow-card">
 
             <h2 className="mb-4 text-xl font-semibold">
               Start Attendance
             </h2>
 
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-slate-200">
               Select Subject & Section
             </label>
 
             {assignmentLoading ? (
 
-              <p className="mb-4 text-gray-500">
+              <p className="mb-4 text-gray-500 dark:text-slate-400">
                 Loading your assignments...
               </p>
 
             ) : assignments.length === 0 ? (
 
-              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium text-amber-800">
+              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-500/10 p-4 text-sm font-medium text-amber-800">
                 No active teacher assignments found.
               </div>
 
@@ -585,7 +589,7 @@ function Dashboard() {
                     e.target.value
                   )
                 }
-                className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/15"
+                className="mb-4 w-full rounded-xl border border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-800 px-4 py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/15"
               >
 
                 <option value="">
@@ -644,13 +648,13 @@ function Dashboard() {
 
         {session && (
 
-          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 text-center shadow-card">
+          <div className="rounded-2xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-6 text-center shadow-card">
 
             <h2 className="mb-2 font-display text-2xl font-bold text-emerald-600">
               Attendance Session Active
             </h2>
 
-            <p className="mb-6 text-gray-600">
+            <p className="mb-6 text-gray-600 dark:text-slate-300">
               Students can scan this QR code
               to mark their attendance.
             </p>
@@ -672,7 +676,7 @@ function Dashboard() {
 
             ) : (
 
-              <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium text-amber-800">
+              <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-500/10 p-4 text-sm font-medium text-amber-800">
                 QR Code is being restored...
               </div>
 
@@ -683,7 +687,7 @@ function Dashboard() {
 
             <div className="mx-auto max-w-xl text-left">
 
-              <p className="mb-2 text-sm text-gray-500">
+              <p className="mb-2 text-sm text-gray-500 dark:text-slate-400">
                 Subject
               </p>
 
@@ -694,7 +698,7 @@ function Dashboard() {
               </p>
 
 
-              <p className="mb-2 text-sm text-gray-500">
+              <p className="mb-2 text-sm text-gray-500 dark:text-slate-400">
                 Section
               </p>
 
@@ -707,11 +711,11 @@ function Dashboard() {
               </p>
 
 
-              <p className="mb-2 text-sm text-gray-500">
+              <p className="mb-2 text-sm text-gray-500 dark:text-slate-400">
                 Session ID
               </p>
 
-              <p className="mb-6 break-all rounded-xl bg-slate-100 p-3 font-mono text-xs">
+              <p className="mb-6 break-all rounded-xl bg-slate-100 dark:bg-slate-800 p-3 font-mono text-xs">
                 {session.id}
               </p>
 
@@ -766,11 +770,11 @@ function Dashboard() {
 
               <div>
 
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-slate-100">
                   Attendance Records
                 </h2>
 
-                <p className="mt-1 text-gray-500">
+                <p className="mt-1 text-gray-500 dark:text-slate-400">
                   Total Records:{" "}
                   <span className="font-semibold text-green-600">
                     {attendances.length}
@@ -786,7 +790,7 @@ function Dashboard() {
                 disabled={
                   attendanceLoading
                 }
-                className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 disabled:opacity-50"
+                className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 disabled:opacity-50"
               >
                 Refresh
               </button>
@@ -798,7 +802,7 @@ function Dashboard() {
 
               <div className="py-12 text-center">
 
-                <p className="text-gray-500">
+                <p className="text-gray-500 dark:text-slate-400">
                   No students have marked attendance yet.
                 </p>
 
@@ -812,7 +816,7 @@ function Dashboard() {
 
                   <thead>
 
-                    <tr className="border-b bg-slate-50/80">
+                    <tr className="border-b bg-slate-50/80 dark:bg-slate-800/60">
 
                       <th className="px-4 py-3">
                         Student Name
@@ -846,7 +850,7 @@ function Dashboard() {
 
                     {attendances.map(
                       (attendance) => (<tr key={attendance.id}
-                          className="border-b transition hover:bg-slate-50"
+                          className="border-b transition hover:bg-slate-50 dark:hover:bg-slate-800/60"
                         >
 
                           <td className="px-4 py-4 font-medium">
@@ -881,11 +885,11 @@ function Dashboard() {
                               className={`rounded-full px-3 py-1 text-sm font-medium ${
                                 attendance.status ===
                                 "PRESENT"
-                                  ? "bg-green-100 text-green-700"
+                                  ? "bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300"
                                   : attendance.status ===
                                     "LATE"
-                                  ? "bg-yellow-100 text-yellow-700"
-                                  : "bg-red-100 text-red-700"
+                                  ? "bg-yellow-100 text-yellow-700 dark:bg-amber-50 dark:bg-amber-500/100/15 dark:text-amber-300"
+                                  : "bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300"
                               }`}
                             >
                               {attendance.status}
@@ -923,19 +927,19 @@ function Dashboard() {
 
           <div className="mt-8 rounded-2xl bg-white p-6 shadow-md">
 
-            <h2 className="mb-6 text-2xl font-bold text-gray-800">
+            <h2 className="mb-6 text-2xl font-bold text-gray-800 dark:text-slate-100">
               Manual Attendance
             </h2>
 
             {studentsLoading ? (
 
-              <p className="text-gray-500">
+              <p className="text-gray-500 dark:text-slate-400">
                 Loading students...
               </p>
 
             ) : students.length === 0 ? (
 
-              <p className="text-gray-500">
+              <p className="text-gray-500 dark:text-slate-400">
                 No students found for this section.
               </p>
 
@@ -947,7 +951,7 @@ function Dashboard() {
 
                   <thead>
 
-                    <tr className="border-b bg-slate-50/80">
+                    <tr className="border-b bg-slate-50/80 dark:bg-slate-800/60">
 
                       <th className="px-4 py-3">
                         Student Name
@@ -985,7 +989,7 @@ function Dashboard() {
 
                           <tr
                             key={student.userId}
-                            className="border-b transition hover:bg-slate-50"
+                            className="border-b transition hover:bg-slate-50 dark:hover:bg-slate-800/60"
                           >
 
                             <td className="px-4 py-4 font-medium">
@@ -1014,11 +1018,11 @@ function Dashboard() {
                                     className={`rounded-full px-3 py-1 text-sm font-semibold ${
                                       existingAttendance.status ===
                                       "PRESENT"
-                                        ? "bg-green-100 text-green-700"
+                                        ? "bg-green-100 text-green-700 dark:bg-emerald-500/15 dark:text-emerald-300"
                                         : existingAttendance.status ===
                                           "LATE"
-                                        ? "bg-yellow-100 text-yellow-700"
-                                        : "bg-red-100 text-red-700"
+                                        ? "bg-yellow-100 text-yellow-700 dark:bg-amber-50 dark:bg-amber-500/100/15 dark:text-amber-300"
+                                        : "bg-red-100 text-red-700 dark:bg-rose-500/15 dark:text-rose-300"
                                     }`}
                                   >
                                     {
@@ -1026,7 +1030,7 @@ function Dashboard() {
                                     }
                                   </span>
 
-                                  <span className="text-xs text-gray-500">
+                                  <span className="text-xs text-gray-500 dark:text-slate-400">
                                     {
                                       existingAttendance.method
                                     }
@@ -1116,9 +1120,9 @@ function Dashboard() {
 
         {message && (
 
-          <div className="mt-6 rounded-xl border border-slate-200/70 bg-white p-4 text-center shadow-soft">
+          <div className="mt-6 rounded-xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-4 text-center shadow-soft">
 
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-slate-200">
               {message}
             </p>
 

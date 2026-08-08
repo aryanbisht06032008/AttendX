@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: add/remove the `dark` class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================
    AttendX Design System — "Aurora"
    A violet / indigo brand system built on Tailwind CSS v4.
@@ -110,6 +113,11 @@
     @apply bg-[#f6f5fb] font-sans text-slate-800;
   }
 
+  /* Dark theme base */
+  html.dark body {
+    @apply bg-slate-950 text-slate-300;
+  }
+
   ::selection {
     @apply bg-amber-200 text-amber-950;
   }
@@ -154,6 +162,21 @@
   background-attachment: fixed;
 }
 
+/* Dark theme app background */
+.dark .bg-app {
+  background-color: #0b1022;
+  background-image: radial-gradient(
+      60rem 60rem at 110% -10%,
+      rgb(138 77 255 / 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 50rem at -10% 110%,
+      rgb(71 63 232 / 0.12),
+      transparent 60%
+    );
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -172,6 +195,16 @@
   background: rgb(100 116 139 / 0.75);
   background-clip: padding-box;
   border: 2px solid transparent;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(71 85 105 / 0.6);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139 / 0.8);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 /* ============================================================
@@ -193,6 +226,10 @@
 }
 .Toastify__progress-bar--error {
   background: linear-gradient(90deg, #f43f5e, #fb7185) !important;
+}
+.dark .Toastify__toast-theme--light {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
 }
 .Toastify__toast-icon svg {
   fill: currentColor;

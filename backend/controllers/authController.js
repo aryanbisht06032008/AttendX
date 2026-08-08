@@ -7,11 +7,21 @@ const generateToken = require("../utils/generateToken");
  */
 const register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !password || !role) {
+    // Public self-registration is only allowed for students. Teachers and
+    // admins must be created by an administrator.
+    const role = req.body.role || "STUDENT";
+
+    if (!name || !email || !password) {
       return res.status(400).json({
-        message: "Name, email, password and role are required",
+        message: "Name, email and password are required",
+      });
+    }
+
+    if (role !== "STUDENT") {
+      return res.status(403).json({
+        message: "Self-registration is only allowed for the STUDENT role.",
       });
     }
 

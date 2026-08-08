@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "../pages/auth/Login";
@@ -17,6 +18,11 @@ import Subjects from "../pages/admin/Subjects";
 import StudentAttendance from "../pages/student/Attendance";
 import AttendanceScanner from "../pages/student/AttendanceScanner";
 import AttendanceHistory from "../pages/student/AttendanceHistory";
+
+// Lazy-loaded: pulls in recharts only when a student opens the report.
+const AttendanceReport = lazy(() =>
+  import("../pages/student/AttendanceReport")
+);
 
 
 function AppRoutes() {
@@ -65,7 +71,11 @@ function AppRoutes() {
         />
         <Route
           path="/admin/users"
-          element={<Users />}
+          element={
+            <ProtectedRoute role="ADMIN">
+              <Users />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/admin/programs"
@@ -139,6 +149,22 @@ function AppRoutes() {
           element={
             <ProtectedRoute role="STUDENT">
               <AttendanceHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/attendance-report"
+          element={
+            <ProtectedRoute role="STUDENT">
+              <Suspense
+                fallback={
+                  <div className="flex min-h-screen items-center justify-center bg-app">
+                    <span className="h-10 w-10 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600" />
+                  </div>
+                }
+              >
+                <AttendanceReport />
+              </Suspense>
             </ProtectedRoute>
           }
         />

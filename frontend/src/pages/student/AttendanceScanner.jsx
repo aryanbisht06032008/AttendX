@@ -3,6 +3,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { toast } from "react-toastify";
 
 import api from "../../api/axios";
+import ThemeToggle from "../../components/ui/ThemeToggle";
 
 function AttendanceScanner({ onClose }) {
   const scannerRef = useRef(null);
@@ -184,22 +185,26 @@ function AttendanceScanner({ onClose }) {
 
         {/* Header */}
 
-        <div className="text-center mb-8">
+        <div className="relative mb-8 text-center">
 
-          <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Mark Attendance
           </h1>
 
-          <p className="text-slate-500 mt-2">
+          <p className="mt-2 text-slate-500 dark:text-slate-400">
             Scan the QR code displayed by your teacher.
           </p>
+
+          <div className="absolute right-0 top-0">
+            <ThemeToggle />
+          </div>
 
         </div>
 
 
         {/* Scanner Card */}
 
-        <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
+        <div className="rounded-2xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-6 shadow-card">
 
           {/* QR Scanner */}
 
@@ -218,7 +223,7 @@ function AttendanceScanner({ onClose }) {
                 📷
               </div>
 
-              <p className="text-slate-500 mb-6">
+              <p className="text-slate-500 dark:text-slate-400 mb-6">
                 Camera scanner is not active.
               </p>
 
@@ -238,7 +243,7 @@ function AttendanceScanner({ onClose }) {
           {scanning && !loading && (
             <div className="text-center mt-6">
 
-              <p className="text-slate-500 mb-4">
+              <p className="text-slate-500 dark:text-slate-400 mb-4">
                 Point your camera at the teacher's
                 attendance QR code.
               </p>
@@ -276,9 +281,9 @@ function AttendanceScanner({ onClose }) {
         {/* Message */}
 
         {message && !loading && (
-          <div className="mt-6 rounded-2xl border border-slate-200/70 bg-white p-6 text-center shadow-card">
+          <div className="mt-6 rounded-2xl border border-slate-200/70 bg-white dark:border-slate-800 dark:bg-slate-900 p-6 text-center shadow-card">
 
-            <p className="font-semibold text-slate-700">
+            <p className="font-semibold text-slate-700 dark:text-slate-200">
               {message}
             </p>
 
