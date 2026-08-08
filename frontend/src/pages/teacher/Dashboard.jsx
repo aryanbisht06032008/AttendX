@@ -474,7 +474,7 @@ function Dashboard() {
   // =====================================
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-app p-4 sm:p-6 lg:p-8">
 
       <div className="mx-auto max-w-6xl">
 
@@ -482,11 +482,11 @@ function Dashboard() {
             HEADER
         ===================================== */}
 
-        <div className="mb-8 flex flex-col gap-5 rounded-2xl bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
 
           <div>
 
-            <p className="text-sm font-semibold text-blue-600">
+            <p className="text-sm font-semibold text-amber-600">
               AttendX Teacher Portal
             </p>
 
@@ -554,7 +554,7 @@ function Dashboard() {
         ===================================== */}
 
         {!session && (
-          <div className="rounded-2xl bg-white p-6 shadow-md">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
             <h2 className="mb-4 text-xl font-semibold">
               Start Attendance
@@ -572,7 +572,7 @@ function Dashboard() {
 
             ) : assignments.length === 0 ? (
 
-              <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-700">
+              <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium text-amber-800">
                 No active teacher assignments found.
               </div>
 
@@ -585,7 +585,7 @@ function Dashboard() {
                     e.target.value
                   )
                 }
-                className="mb-4 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/15"
               >
 
                 <option value="">
@@ -627,7 +627,7 @@ function Dashboard() {
                 loading ||
                 !selectedAssignment
               }
-              className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+              className="rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 px-6 py-3 font-semibold text-white shadow-glow-sm transition hover:-translate-y-0.5 hover:shadow-glow disabled:pointer-events-none disabled:opacity-50"
             >
               {loading
                 ? "Starting..."
@@ -644,9 +644,9 @@ function Dashboard() {
 
         {session && (
 
-          <div className="rounded-2xl bg-white p-6 text-center shadow-md">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 text-center shadow-card">
 
-            <h2 className="mb-2 text-2xl font-bold text-green-600">
+            <h2 className="mb-2 font-display text-2xl font-bold text-emerald-600">
               Attendance Session Active
             </h2>
 
@@ -665,14 +665,14 @@ function Dashboard() {
                 <img
                   src={qrCode}
                   alt="Attendance QR Code"
-                  className="h-72 w-72 rounded-lg border p-4"
+                  className="h-72 w-72 rounded-2xl border-4 border-white bg-white p-3 shadow-glow-sm"
                 />
 
               </div>
 
             ) : (
 
-              <div className="mb-6 rounded-lg border border-yellow-200 bg-yellow-50 p-4 text-yellow-700">
+              <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium text-amber-800">
                 QR Code is being restored...
               </div>
 
@@ -711,7 +711,7 @@ function Dashboard() {
                 Session ID
               </p>
 
-              <p className="mb-6 break-all rounded-lg bg-gray-100 p-3 font-mono text-xs">
+              <p className="mb-6 break-all rounded-xl bg-slate-100 p-3 font-mono text-xs">
                 {session.id}
               </p>
 
@@ -729,7 +729,7 @@ function Dashboard() {
                 disabled={
                   attendanceLoading
                 }
-                className="rounded-lg bg-green-600 px-8 py-3 font-semibold text-white hover:bg-green-700 disabled:opacity-50"
+                className="rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 px-8 py-3 font-semibold text-white shadow-[0_4px_14px_-6px_rgb(16_185_129/0.5)] transition hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50"
               >
                 {attendanceLoading
                   ? "Loading..."
@@ -740,7 +740,7 @@ function Dashboard() {
               <button
                 onClick={endAttendance}
                 disabled={loading}
-                className="rounded-lg bg-red-600 px-8 py-3 font-semibold text-white hover:bg-red-700 disabled:opacity-50"
+                className="rounded-xl bg-gradient-to-r from-rose-500 to-red-600 px-8 py-3 font-semibold text-white shadow-[0_4px_14px_-6px_rgb(225_29_72/0.5)] transition hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50"
               >
                 {loading
                   ? "Ending..."
@@ -786,7 +786,7 @@ function Dashboard() {
                 disabled={
                   attendanceLoading
                 }
-                className="rounded-lg bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
+                className="rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 disabled:opacity-50"
               >
                 Refresh
               </button>
@@ -812,7 +812,7 @@ function Dashboard() {
 
                   <thead>
 
-                    <tr className="border-b bg-gray-50">
+                    <tr className="border-b bg-slate-50/80">
 
                       <th className="px-4 py-3">
                         Student Name
@@ -845,11 +845,8 @@ function Dashboard() {
                   <tbody>
 
                     {attendances.map(
-                      (attendance) => (
-
-                        <tr
-                          key={attendance.id}
-                          className="border-b hover:bg-gray-50"
+                      (attendance) => (<tr key={attendance.id}
+                          className="border-b transition hover:bg-slate-50"
                         >
 
                           <td className="px-4 py-4 font-medium">
@@ -950,7 +947,7 @@ function Dashboard() {
 
                   <thead>
 
-                    <tr className="border-b bg-gray-50">
+                    <tr className="border-b bg-slate-50/80">
 
                       <th className="px-4 py-3">
                         Student Name
@@ -988,7 +985,7 @@ function Dashboard() {
 
                           <tr
                             key={student.userId}
-                            className="border-b"
+                            className="border-b transition hover:bg-slate-50"
                           >
 
                             <td className="px-4 py-4 font-medium">
@@ -1051,7 +1048,7 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="rounded-lg bg-green-600 px-3 py-2 text-white hover:bg-green-700 disabled:opacity-50"
+                                    className="rounded-lg bg-emerald-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-600 disabled:opacity-50"
                                   >
                                     Present
                                   </button>
@@ -1067,7 +1064,7 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="rounded-lg bg-yellow-500 px-3 py-2 text-white hover:bg-yellow-600 disabled:opacity-50"
+                                    className="rounded-lg bg-yellow-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-yellow-600 disabled:opacity-50"
                                   >
                                     Late
                                   </button>
@@ -1083,7 +1080,7 @@ function Dashboard() {
                                     disabled={
                                       loading
                                     }
-                                    className="rounded-lg bg-red-600 px-3 py-2 text-white hover:bg-red-700 disabled:opacity-50"
+                                    className="rounded-lg bg-rose-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-rose-600 disabled:opacity-50"
                                   >
                                     Absent
                                   </button>
@@ -1119,7 +1116,7 @@ function Dashboard() {
 
         {message && (
 
-          <div className="mt-6 rounded-lg bg-white p-4 text-center shadow">
+          <div className="mt-6 rounded-xl border border-slate-200/70 bg-white p-4 text-center shadow-soft">
 
             <p className="text-gray-700">
               {message}

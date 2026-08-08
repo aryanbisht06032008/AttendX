@@ -64,7 +64,7 @@ function AttendanceHistory() {
       : 0;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-app p-8">
 
       <div className="max-w-6xl mx-auto">
 
@@ -73,11 +73,11 @@ function AttendanceHistory() {
         <div className="flex justify-between items-center mb-8">
 
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900">
               Attendance History
             </h1>
 
-            <p className="text-gray-600 mt-2">
+            <p className="text-slate-500 mt-2">
               View your complete attendance records.
             </p>
           </div>
@@ -85,7 +85,7 @@ function AttendanceHistory() {
           <button
             onClick={getMyAttendance}
             disabled={loading}
-            className="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
+            className="rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 px-5 py-3 font-semibold text-white shadow-glow-sm transition hover:-translate-y-0.5 hover:shadow-glow disabled:pointer-events-none disabled:opacity-50"
           >
             {loading
               ? "Refreshing..."
@@ -101,13 +101,13 @@ function AttendanceHistory() {
 
           {/* Total */}
 
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
             <p className="text-gray-500">
               Total Records
             </p>
 
-            <h2 className="text-3xl font-bold text-gray-800 mt-2">
+            <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-slate-900">
               {total}
             </h2>
 
@@ -116,13 +116,13 @@ function AttendanceHistory() {
 
           {/* Present */}
 
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
             <p className="text-gray-500">
               Present
             </p>
 
-            <h2 className="text-3xl font-bold text-green-600 mt-2">
+            <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-emerald-600">
               {present}
             </h2>
 
@@ -131,13 +131,13 @@ function AttendanceHistory() {
 
           {/* Late */}
 
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
             <p className="text-gray-500">
               Late
             </p>
 
-            <h2 className="text-3xl font-bold text-yellow-600 mt-2">
+            <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-yellow-500">
               {late}
             </h2>
 
@@ -146,13 +146,13 @@ function AttendanceHistory() {
 
           {/* Percentage */}
 
-          <div className="bg-white rounded-xl shadow-md p-6">
+          <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
             <p className="text-gray-500">
               Attendance %
             </p>
 
-            <h2 className="text-3xl font-bold text-blue-600 mt-2">
+            <h2 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-sky-600">
               {attendancePercentage}%
             </h2>
 
@@ -164,7 +164,7 @@ function AttendanceHistory() {
         {/* ================= MESSAGE ================= */}
 
         {message && (
-          <div className="bg-red-100 border border-red-200 text-red-700 rounded-lg p-4 mb-6">
+          <div className="mb-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm font-medium text-rose-700">
             {message}
           </div>
         )}
@@ -172,11 +172,11 @@ function AttendanceHistory() {
 
         {/* ================= TABLE ================= */}
 
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="rounded-2xl border border-slate-200/70 bg-white shadow-card overflow-hidden">
 
-          <div className="p-6 border-b">
+          <div className="border-b border-slate-100 px-6 py-5">
 
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="font-display text-xl font-bold tracking-tight text-slate-900">
               Attendance Records
             </h2>
 
@@ -187,7 +187,7 @@ function AttendanceHistory() {
 
             <div className="text-center py-16">
 
-              <p className="text-gray-500">
+              <p className="text-slate-500">
                 Loading attendance history...
               </p>
 
@@ -201,11 +201,11 @@ function AttendanceHistory() {
                 📋
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="font-display text-xl font-bold tracking-tight text-slate-900">
                 No Attendance Records
               </h3>
 
-              <p className="text-gray-500 mt-2">
+              <p className="text-slate-500 mt-2">
                 You don't have any attendance records yet.
               </p>
 
@@ -219,7 +219,7 @@ function AttendanceHistory() {
 
                 <thead>
 
-                  <tr className="border-b bg-gray-50">
+                  <tr className="border-b bg-slate-50/80">
 
                     <th className="px-6 py-4">
                       Subject
@@ -273,7 +273,7 @@ function AttendanceHistory() {
 
                         <tr
                           key={attendance.id}
-                          className="border-b hover:bg-gray-50"
+                          className="border-b transition hover:bg-slate-50"
                         >
 
                           {/* Subject */}

@@ -1,6 +1,8 @@
-function Card({ children }) {
+function Card({ children, className = "" }) {
   return (
-    <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-6">
+    <div
+      className={`rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card ${className}`}
+    >
       {children}
     </div>
   );

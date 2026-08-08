@@ -8,10 +8,13 @@ function ProtectedRoute({ children, role }) {
   // from localStorage
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 text-lg">
-          Loading...
-        </p>
+      <div className="flex min-h-screen items-center justify-center bg-app">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 shadow-glow">
+            <span className="h-7 w-7 animate-spin rounded-full border-[3px] border-white/30 border-t-white" />
+          </div>
+          <p className="text-sm font-semibold text-slate-500">Loading AttendX...</p>
+        </div>
       </div>
     );
   }

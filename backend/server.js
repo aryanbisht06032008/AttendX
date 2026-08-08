@@ -1,7 +1,10 @@
 const authMiddleware = require("./middleware/authMiddleware");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+// override: true ensures .env values (e.g. PORT) win over
+// environment variables inherited from the OS shell, which may
+// set PORT to something unexpected (e.g. 59830).
+require("dotenv").config({ override: true });
 
 const authRoutes = require("./routes/authRoutes");
 

@@ -178,7 +178,7 @@ function AttendanceScanner({ onClose }) {
   // =====================================
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-app p-8">
 
       <div className="max-w-xl mx-auto">
 
@@ -186,11 +186,11 @@ function AttendanceScanner({ onClose }) {
 
         <div className="text-center mb-8">
 
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900">
             Mark Attendance
           </h1>
 
-          <p className="text-gray-600 mt-2">
+          <p className="text-slate-500 mt-2">
             Scan the QR code displayed by your teacher.
           </p>
 
@@ -199,7 +199,7 @@ function AttendanceScanner({ onClose }) {
 
         {/* Scanner Card */}
 
-        <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="rounded-2xl border border-slate-200/70 bg-white p-6 shadow-card">
 
           {/* QR Scanner */}
 
@@ -218,13 +218,13 @@ function AttendanceScanner({ onClose }) {
                 📷
               </div>
 
-              <p className="text-gray-500 mb-6">
+              <p className="text-slate-500 mb-6">
                 Camera scanner is not active.
               </p>
 
               <button
                 onClick={startScanner}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                className="rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 px-8 py-3 font-semibold text-white shadow-glow-sm transition hover:-translate-y-0.5 hover:shadow-glow"
               >
                 Start QR Scanner
               </button>
@@ -238,14 +238,14 @@ function AttendanceScanner({ onClose }) {
           {scanning && !loading && (
             <div className="text-center mt-6">
 
-              <p className="text-gray-600 mb-4">
+              <p className="text-slate-500 mb-4">
                 Point your camera at the teacher's
                 attendance QR code.
               </p>
 
               <button
                 onClick={stopScanner}
-                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+                className="rounded-xl bg-gradient-to-r from-rose-500 to-red-600 px-8 py-3 font-semibold text-white shadow-[0_4px_14px_-6px_rgb(225_29_72/0.5)] transition hover:-translate-y-0.5"
               >
                 Stop Scanner
               </button>
@@ -263,7 +263,7 @@ function AttendanceScanner({ onClose }) {
                 ⏳
               </div>
 
-              <p className="text-blue-600 font-semibold">
+              <p className="font-semibold text-amber-600">
                 Marking your attendance...
               </p>
 
@@ -276,9 +276,9 @@ function AttendanceScanner({ onClose }) {
         {/* Message */}
 
         {message && !loading && (
-          <div className="mt-6 bg-white rounded-xl shadow-md p-6 text-center">
+          <div className="mt-6 rounded-2xl border border-slate-200/70 bg-white p-6 text-center shadow-card">
 
-            <p className="text-gray-700 font-semibold">
+            <p className="font-semibold text-slate-700">
               {message}
             </p>
 
