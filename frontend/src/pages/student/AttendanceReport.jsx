@@ -22,7 +22,9 @@ import {
   FaCheckCircle,
   FaClock,
   FaGraduationCap,
+  FaFileCsv,
 } from "react-icons/fa";
+import { downloadCsv, csvFilename } from "../../utils/csvExport";
 
 import api from "../../api/axios";
 import ThemeToggle from "../../components/ui/ThemeToggle";
@@ -160,6 +162,37 @@ function AttendanceReport() {
     { name: "Absent", value: absent, color: "#f43f5e" },
   ].filter((item) => item.value > 0);
 
+  // ---- export report (CSV) ----
+  const exportReportCsv = () => {
+    const rows = [
+      [
+        "Subject",
+        "Code",
+        "Teacher",
+        "Total Sessions",
+        "Present",
+        "Late",
+        "Absent",
+        "Attendance %",
+      ],
+      ...subjects.map((subject) => [
+        subject.name,
+        subject.code || "",
+        subject.teacher,
+        subject.total,
+        subject.present,
+        subject.late,
+        subject.absent,
+        `${subject.percentage}%`,
+      ]),
+    ];
+
+    downloadCsv({
+      filename: csvFilename("attendance-report"),
+      rows,
+    });
+  };
+
   // ---- loading ----
   if (loading) {
     return (
@@ -235,6 +268,15 @@ function AttendanceReport() {
 
           <div className="flex items-center gap-3 self-start">
             <ThemeToggle />
+
+            <button
+              onClick={exportReportCsv}
+              disabled={total === 0}
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            >
+              <FaFileCsv />
+              Export CSV
+            </button>
 
             <button
               onClick={fetchReport}

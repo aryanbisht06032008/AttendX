@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaFileCsv } from "react-icons/fa";
+import { downloadCsv, csvFilename } from "../../utils/csvExport";
 
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
 import ThemeToggle from "../../components/ui/ThemeToggle";
+
+const SESSION_DURATIONS = [15, 30, 45, 60, 90];
+
+function formatTime(totalSeconds) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const pad = (n) => String(n).padStart(2, "0");
+
+  return hours > 0
+    ? `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+    : `${pad(minutes)}:${pad(seconds)}`;
+}
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -24,6 +38,13 @@ function Dashboard() {
 
   const [session, setSession] = useState(null);
   const [qrCode, setQrCode] = useState("");
+
+  // Session countdown window (minutes) + live countdown
+  const [sessionMinutes, setSessionMinutes] = useState(() => {
+    const saved = Number(localStorage.getItem("attendx-session-minutes"));
+    return SESSION_DURATIONS.includes(saved) ? saved : 60;
+  });
+  const [timeLeft, setTimeLeft] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -245,6 +266,54 @@ function Dashboard() {
 
     loadDashboard();
   }, []);
+
+  // =====================================
+  // SESSION COUNTDOWN
+  // =====================================
+
+  useEffect(() => {
+    if (!session?.startTime) {
+      setTimeLeft(0);
+      return;
+    }
+
+    const endTime =
+      new Date(session.startTime).getTime() +
+      sessionMinutes * 60 * 1000;
+
+    const tick = () => {
+      const remaining = Math.max(
+        0,
+        Math.ceil((endTime - Date.now()) / 1000)
+      );
+      setTimeLeft(remaining);
+    };
+
+    tick();
+
+    const interval = setInterval(tick, 1000);
+
+    return () => clearInterval(interval);
+  }, [session?.id, session?.startTime, sessionMinutes]);
+
+  // =====================================
+  // LIVE ATTENDANCE POLLING
+  // =====================================
+
+  useEffect(() => {
+    if (!session) {
+      return;
+    }
+
+    const poll = async () => {
+      await getAttendanceRecords(session.id, false);
+      await getStudentsForAttendanceForSession(session.id);
+    };
+
+    const interval = setInterval(poll, 10000);
+
+    return () => clearInterval(interval);
+  }, [session?.id]);
 
   // =====================================
   // START ATTENDANCE
@@ -471,6 +540,47 @@ function Dashboard() {
   };
 
   // =====================================
+  // EXPORT ATTENDANCE RECORDS (CSV)
+  // =====================================
+
+  const exportAttendanceCsv = () => {
+    if (attendances.length === 0) {
+      return;
+    }
+
+    const rows = [
+      [
+        "Student Name",
+        "Enrollment Number",
+        "Roll Number",
+        "Scan Time",
+        "Status",
+        "Method",
+      ],
+      ...attendances.map((attendance) => [
+        attendance.student?.user?.name || "—",
+        attendance.student?.enrollmentNumber || "—",
+        attendance.student?.rollNumber ?? "—",
+        attendance.scanTime
+          ? new Date(attendance.scanTime).toLocaleString()
+          : "—",
+        attendance.status || "—",
+        attendance.method || "—",
+      ]),
+    ];
+
+    const subjectName =
+      session?.teacherAssignment?.subject?.name
+        ?.replace(/\s+/g, "-")
+        .toLowerCase() || "session";
+
+    downloadCsv({
+      filename: csvFilename(`attendance-${subjectName}`),
+      rows,
+    });
+  };
+
+  // =====================================
   // UI
   // =====================================
 
@@ -621,6 +731,29 @@ function Dashboard() {
 
             )}
 
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-slate-300">
+              Session Window
+            </label>
+
+            <select
+              value={sessionMinutes}
+              onChange={(e) => {
+                const minutes = Number(e.target.value);
+                setSessionMinutes(minutes);
+                localStorage.setItem(
+                  "attendx-session-minutes",
+                  String(minutes)
+                );
+              }}
+              className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/15 dark:border-slate-700 dark:bg-slate-800"
+            >
+              {SESSION_DURATIONS.map((minutes) => (
+                <option key={minutes} value={minutes}>
+                  {minutes} minutes
+                </option>
+              ))}
+            </select>
+
             <button
               onClick={() =>
                 startAttendance(
@@ -658,6 +791,93 @@ function Dashboard() {
               Students can scan this QR code
               to mark their attendance.
             </p>
+
+
+            {/* LIVE SESSION METRICS */}
+
+            <div className="mx-auto mb-6 grid max-w-2xl grid-cols-1 gap-4 text-left sm:grid-cols-2">
+
+              {/* Countdown */}
+
+              <div className="rounded-2xl border border-slate-200/70 bg-slate-50/60 p-4 dark:border-slate-700 dark:bg-slate-800/60">
+
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Time Remaining
+                </p>
+
+                <p className={`mt-2 font-display text-3xl font-extrabold tabular-nums tracking-tight ${timeLeft === 0
+                  ? "animate-pulse text-rose-500"
+                  : "text-slate-900 dark:text-white"
+                }`}>
+                  {formatTime(timeLeft)}
+                </p>
+
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  {timeLeft === 0
+                    ? "Session window ended"
+                    : `Session window · ${sessionMinutes} min`}
+                </p>
+
+              </div>
+
+              {/* Scanned counter */}
+
+              <div className="rounded-2xl border border-slate-200/70 bg-slate-50/60 p-4 dark:border-slate-700 dark:bg-slate-800/60">
+
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Students Scanned
+                </p>
+
+                <p className="mt-2 font-display text-3xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
+                  {attendances.length}
+                  <span className="text-lg font-semibold text-slate-400">
+                    {" "}/ {students.length}
+                  </span>
+                </p>
+
+                <div
+                  className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow={students.length > 0
+                    ? Math.min(
+                        100,
+                        Math.round(
+                          (attendances.length / students.length) * 100
+                        )
+                      )
+                    : 0}
+                  aria-label="Students checked in"
+                >
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-green-500 transition-all duration-500"
+                    style={{
+                      width: `${
+                        students.length > 0
+                          ? Math.min(
+                              100,
+                              Math.round(
+                                (attendances.length / students.length) * 100
+                              )
+                            )
+                          : 0
+                      }%`,
+                    }}
+                  />
+                </div>
+
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  {students.length > 0
+                    ? `${Math.round(
+                        (attendances.length / students.length) * 100
+                      )}% of the class checked in`
+                    : "Roster not loaded"}
+                </p>
+
+              </div>
+
+            </div>
 
 
             {/* QR CODE */}
@@ -783,17 +1003,28 @@ function Dashboard() {
 
               </div>
 
-              <button
-                onClick={() =>
-                  getAttendanceRecords()
-                }
-                disabled={
-                  attendanceLoading
-                }
-                className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 disabled:opacity-50"
-              >
-                Refresh
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={exportAttendanceCsv}
+                  disabled={attendances.length === 0}
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:pointer-events-none disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                >
+                  <FaFileCsv />
+                  Export CSV
+                </button>
+
+                <button
+                  onClick={() =>
+                    getAttendanceRecords()
+                  }
+                  disabled={
+                    attendanceLoading
+                  }
+                  className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-200 disabled:opacity-50"
+                >
+                  Refresh
+                </button>
+              </div>
 
             </div>
 
