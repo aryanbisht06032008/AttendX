@@ -20,7 +20,11 @@ async function main() {
     where: {
       email: "admin@attendx.com",
     },
-    update: {},
+    // Keep the password in sync with DEFAULT_ADMIN_PASSWORD on every
+    // re-seed, so the .env value always matches the stored hash.
+    update: {
+      password: hashedPassword,
+    },
     create: {
       name: "System Administrator",
       email: "admin@attendx.com",
@@ -29,7 +33,7 @@ async function main() {
     },
   });
 
-  console.log("✅ Admin created");
+  console.log("✅ Admin created/updated");
 
   // ==========================================
   // Seed Departments

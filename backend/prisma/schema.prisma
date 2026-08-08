@@ -255,6 +255,15 @@ model AttendanceSession {
 
   status AttendanceSessionStatus @default(ACTIVE)
 
+  // GPS location of the teacher when the session was started.
+  // Used to verify students are physically near the teacher.
+  teacherLatitude  Float?
+  teacherLongitude Float?
+
+  // Allowed distance (meters) a student may be from the teacher
+  // for a QR scan to count. Chosen by the teacher at session start.
+  allowedRadiusMeters Int @default(20)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -277,6 +286,12 @@ model Attendance {
 
   status AttendanceStatus @default(PRESENT)
   method AttendanceMethod @default(QR)
+
+  // GPS location of the student when the QR code was scanned,
+  // and the computed distance from the teacher in meters.
+  studentLatitude  Float?
+  studentLongitude Float?
+  distanceMeters   Float?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

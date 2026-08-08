@@ -6,8 +6,10 @@ import { downloadCsv, csvFilename } from "../../utils/csvExport";
 import api from "../../api/axios";
 import { useAuth } from "../../context/AuthContext";
 import ThemeToggle from "../../components/ui/ThemeToggle";
+import { getCurrentPosition } from "../../utils/geolocation";
 
 const SESSION_DURATIONS = [15, 30, 45, 60, 90];
+const GPS_RADIUS_OPTIONS = [20, 50, 100];
 
 function formatTime(totalSeconds) {
   const hours = Math.floor(totalSeconds / 3600);
@@ -43,6 +45,12 @@ function Dashboard() {
   const [sessionMinutes, setSessionMinutes] = useState(() => {
     const saved = Number(localStorage.getItem("attendx-session-minutes"));
     return SESSION_DURATIONS.includes(saved) ? saved : 60;
+  });
+
+  // GPS radius (meters) students must be within to check in
+  const [gpsRadius, setGpsRadius] = useState(() => {
+    const saved = Number(localStorage.getItem("attendx-gps-radius"));
+    return GPS_RADIUS_OPTIONS.includes(saved) ? saved : 20;
   });
   const [timeLeft, setTimeLeft] = useState(0);
 
@@ -331,6 +339,27 @@ function Dashboard() {
 
     try {
       setLoading(true);
+      setMessage("Getting your location...");
+
+      // Capture the teacher's GPS location. Students must be
+      // within 20 meters of this location to check in.
+      let location;
+
+      try {
+        location = await getCurrentPosition();
+      } catch (geoError) {
+        console.error(
+          "Failed to get teacher location:",
+          geoError
+        );
+
+        setMessage(
+          "Location is required to start an attendance session. Please allow location access and try again."
+        );
+
+        return;
+      }
+
       setMessage("");
 
       const response = await api.post(
@@ -338,6 +367,15 @@ function Dashboard() {
         {
           teacherAssignmentId:
             assignmentId,
+
+          latitude:
+            location.coords.latitude,
+
+          longitude:
+            location.coords.longitude,
+
+          allowedRadiusMeters:
+            gpsRadius,
         }
       );
 
@@ -556,6 +594,7 @@ function Dashboard() {
         "Scan Time",
         "Status",
         "Method",
+        "Distance (m)",
       ],
       ...attendances.map((attendance) => [
         attendance.student?.user?.name || "—",
@@ -566,6 +605,7 @@ function Dashboard() {
           : "—",
         attendance.status || "—",
         attendance.method || "—",
+        attendance.distanceMeters ?? "—",
       ]),
     ];
 
@@ -732,6 +772,34 @@ function Dashboard() {
             )}
 
             <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-slate-300">
+              GPS Allowed Radius
+            </label>
+
+            <select
+              value={gpsRadius}
+              onChange={(e) => {
+                const radius = Number(e.target.value);
+                setGpsRadius(radius);
+                localStorage.setItem(
+                  "attendx-gps-radius",
+                  String(radius)
+                );
+              }}
+              className="mb-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-500/15 dark:border-slate-700 dark:bg-slate-800"
+            >
+              {GPS_RADIUS_OPTIONS.map((radius) => (
+                <option key={radius} value={radius}>
+                  {radius} meters
+                </option>
+              ))}
+            </select>
+
+            <p className="mb-4 -mt-2 text-xs text-gray-500 dark:text-slate-400">
+              Students must be within this distance of you
+              to mark attendance.
+            </p>
+
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-slate-300">
               Session Window
             </label>
 
@@ -791,6 +859,31 @@ function Dashboard() {
               Students can scan this QR code
               to mark their attendance.
             </p>
+
+
+            {/* GPS STATUS */}
+
+            {session.teacherLatitude == null ||
+            session.teacherLongitude == null ? (
+
+              <div className="mx-auto mb-6 max-w-2xl rounded-xl border border-rose-200 bg-rose-50 p-4 text-left text-sm font-medium text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
+                ⚠️ This session has no teacher
+                location set, so students cannot
+                check in. End the session and
+                start it again to lock your
+                location.
+              </div>
+
+            ) : (
+
+              <div className="mx-auto mb-6 max-w-2xl rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-left text-sm font-medium text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300">
+                📍 GPS location locked — students
+                must be within{" "}
+                {session.allowedRadiusMeters ?? 20}{" "}
+                meters of you to mark attendance.
+              </div>
+
+            )}
 
 
             {/* LIVE SESSION METRICS */}
@@ -1073,6 +1166,10 @@ function Dashboard() {
                         Method
                       </th>
 
+                      <th className="px-4 py-3">
+                        Distance
+                      </th>
+
                     </tr>
 
                   </thead>
@@ -1130,6 +1227,12 @@ function Dashboard() {
 
                           <td className="px-4 py-4">
                             {attendance.method}
+                          </td>
+
+                          <td className="px-4 py-4">
+                            {attendance.distanceMeters != null
+                              ? `${attendance.distanceMeters} m`
+                              : "—"}
                           </td>
 
                         </tr>

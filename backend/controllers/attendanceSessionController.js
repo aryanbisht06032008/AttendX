@@ -2,6 +2,9 @@ const crypto = require("crypto");
 const QRCode = require("qrcode");
 const prisma = require("../config/prisma");
 const asyncHandler = require("../utils/asyncHandler");
+const {
+  DEFAULT_ALLOWED_RADIUS_METERS,
+} = require("../utils/distance");
 
 /**
  * ============================================
@@ -80,12 +83,47 @@ const getMyActiveSession = asyncHandler(async (req, res) => {
  * ============================================
  */
 const startAttendanceSession = asyncHandler(async (req, res) => {
-  const { teacherAssignmentId } = req.body;
+  const {
+    teacherAssignmentId,
+    latitude,
+    longitude,
+    allowedRadiusMeters,
+  } = req.body;
 
   if (!teacherAssignmentId) {
     return res.status(400).json({
       message: "Teacher assignment ID is required.",
     });
+  }
+
+  // Teacher location is required so students can be verified
+  // to be within range of the teacher when they scan.
+  if (typeof latitude !== "number" || typeof longitude !== "number") {
+    return res.status(400).json({
+      message:
+        "Teacher location is required to start an attendance session. Please allow location access and try again.",
+    });
+  }
+
+  // Optional per-session radius chosen by the teacher. Defaults to
+  // DEFAULT_ALLOWED_RADIUS_METERS when not provided.
+  let radius = DEFAULT_ALLOWED_RADIUS_METERS;
+
+  if (allowedRadiusMeters !== undefined && allowedRadiusMeters !== null) {
+    const parsedRadius = Number(allowedRadiusMeters);
+
+    if (
+      !Number.isInteger(parsedRadius) ||
+      parsedRadius <= 0 ||
+      parsedRadius > 10000
+    ) {
+      return res.status(400).json({
+        message:
+          "Allowed radius must be a positive number of meters (max 10000).",
+      });
+    }
+
+    radius = parsedRadius;
   }
 
   // Find assignment
@@ -149,6 +187,9 @@ const startAttendanceSession = asyncHandler(async (req, res) => {
         qrToken,
         startTime: new Date(),
         status: "ACTIVE",
+        teacherLatitude: latitude,
+        teacherLongitude: longitude,
+        allowedRadiusMeters: radius,
       },
 
       include: {

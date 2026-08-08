@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import api from "../../api/axios";
 import ThemeToggle from "../../components/ui/ThemeToggle";
+import { getCurrentPosition } from "../../utils/geolocation";
 
 function AttendanceScanner({ onClose }) {
   const scannerRef = useRef(null);
@@ -54,7 +55,32 @@ function AttendanceScanner({ onClose }) {
 
     try {
       setLoading(true);
-      setMessage("");
+      setMessage("Checking your location...");
+
+      // Capture the student's GPS location. Attendance is only
+      // marked when the student is within 20m of the teacher.
+      let location;
+
+      try {
+        location = await getCurrentPosition();
+      } catch (geoError) {
+        console.error(
+          "Failed to get student location:",
+          geoError
+        );
+
+        const errorMessage =
+          "Location access is required to mark attendance. Please allow location access and try again.";
+
+        setMessage(errorMessage);
+
+        toast.error(errorMessage);
+
+        // Allow scanning again
+        hasScannedRef.current = false;
+
+        return;
+      }
 
       // Stop camera after QR is detected
       await stopScanner();
@@ -63,6 +89,12 @@ function AttendanceScanner({ onClose }) {
         "/attendance/scan",
         {
           qrToken,
+
+          latitude:
+            location.coords.latitude,
+
+          longitude:
+            location.coords.longitude,
         }
       );
 
@@ -193,6 +225,8 @@ function AttendanceScanner({ onClose }) {
 
           <p className="mt-2 text-slate-500 dark:text-slate-400">
             Scan the QR code displayed by your teacher.
+            You must be near your teacher (within their
+            allowed GPS range) to mark attendance.
           </p>
 
           <div className="absolute right-0 top-0">
@@ -246,6 +280,7 @@ function AttendanceScanner({ onClose }) {
               <p className="text-slate-500 dark:text-slate-400 mb-4">
                 Point your camera at the teacher's
                 attendance QR code.
+                Make sure location access is enabled.
               </p>
 
               <button

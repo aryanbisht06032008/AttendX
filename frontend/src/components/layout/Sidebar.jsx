@@ -9,6 +9,7 @@ import {
   FaGraduationCap,
   FaUsers,
   FaLayerGroup,
+  FaListOl,
   FaTimes,
 } from "react-icons/fa";
 
@@ -16,6 +17,7 @@ const menuItems = [
   { name: "Dashboard", path: "/admin", icon: <FaHome />, end: true },
   { name: "Departments", path: "/admin/departments", icon: <FaBuilding /> },
   { name: "Programs", path: "/admin/programs", icon: <FaBook /> },
+  { name: "Semesters", path: "/admin/semesters", icon: <FaListOl /> },
   { name: "Subjects", path: "/admin/subjects", icon: <FaBookOpen /> },
   { name: "Teachers", path: "/admin/teachers", icon: <FaUsers /> },
   {
@@ -40,7 +42,7 @@ function Sidebar({ open, onClose }) {
       )}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-slate-950 bg-gradient-to-b from-slate-950 via-[#150b33] to-[#2a0a61] shadow-2xl transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0 lg:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-slate-950 bg-gradient-to-b from-slate-950 via-[#150b33] to-[#2a0a61] shadow-2xl transition-transform duration-300 lg:translate-x-0 lg:shadow-none ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >

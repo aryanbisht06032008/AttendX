@@ -1,11 +1,15 @@
 const prisma = require("../config/prisma");
 const asyncHandler = require("../utils/asyncHandler");
+const {
+  DEFAULT_ALLOWED_RADIUS_METERS,
+  haversineDistance,
+} = require("../utils/distance");
 
 /**
  * Student Scan QR
  */
 const scanAttendance = asyncHandler(async (req, res) => {
-  const { qrToken } = req.body;
+  const { qrToken, latitude, longitude } = req.body;
 
   // Get logged-in student
   const student = await prisma.studentProfile.findUnique({
@@ -34,6 +38,55 @@ const scanAttendance = asyncHandler(async (req, res) => {
   if (!session) {
     return res.status(400).json({
       message: "Invalid or expired QR Code.",
+    });
+  }
+
+  // ============================================
+  // GPS PROXIMITY CHECK
+  // ============================================
+
+  // Student location is required to verify they are
+  // physically present in the class.
+  if (typeof latitude !== "number" || typeof longitude !== "number") {
+    return res.status(400).json({
+      message:
+        "Your location is required to mark attendance. Please allow location access and try again.",
+    });
+  }
+
+  // Session must carry the teacher's location (set when
+  // the session was started).
+  if (
+    session.teacherLatitude === null ||
+    session.teacherLongitude === null
+  ) {
+    return res.status(400).json({
+      message:
+        "This session has no teacher location set. Please ask your teacher to end and restart the session.",
+    });
+  }
+
+  // Distance between the student and the teacher in meters.
+  const distanceMeters = haversineDistance(
+    session.teacherLatitude,
+    session.teacherLongitude,
+    latitude,
+    longitude
+  );
+
+  // Per-session radius chosen by the teacher when starting the
+  // session (schema default 20 if not set).
+  const allowedRadiusMeters =
+    session.allowedRadiusMeters ??
+    DEFAULT_ALLOWED_RADIUS_METERS;
+
+  // Reject scans from students outside the allowed radius.
+  if (distanceMeters > allowedRadiusMeters) {
+    return res.status(403).json({
+      message:
+        "You are not in the class. You must be within " +
+        `${allowedRadiusMeters} meters of the teacher to mark attendance.`,
+      distanceMeters: Math.round(distanceMeters),
     });
   }
 
@@ -71,6 +124,9 @@ const scanAttendance = asyncHandler(async (req, res) => {
       studentId: student.userId,
       status: "PRESENT",
       method: "QR",
+      studentLatitude: latitude,
+      studentLongitude: longitude,
+      distanceMeters: Math.round(distanceMeters * 100) / 100,
     },
   });
 

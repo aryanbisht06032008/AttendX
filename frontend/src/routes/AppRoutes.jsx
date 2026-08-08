@@ -15,6 +15,7 @@ import Students from "../pages/admin/Students";
 import Sections from "../pages/admin/Sections";
 import TeacherAssignments from "../pages/admin/TeacherAssignments";
 import Subjects from "../pages/admin/Subjects";
+import Semesters from "../pages/admin/Semesters";
 import StudentAttendance from "../pages/student/Attendance";
 import AttendanceScanner from "../pages/student/AttendanceScanner";
 import AttendanceHistory from "../pages/student/AttendanceHistory";
@@ -125,6 +126,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute role="ADMIN">
               <Subjects />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/semesters"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <Semesters />
             </ProtectedRoute>
           }
         />

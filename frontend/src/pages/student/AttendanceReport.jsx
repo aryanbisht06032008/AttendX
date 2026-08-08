@@ -28,6 +28,7 @@ import { downloadCsv, csvFilename } from "../../utils/csvExport";
 
 import api from "../../api/axios";
 import ThemeToggle from "../../components/ui/ThemeToggle";
+import { useTheme } from "../../context/ThemeContext";
 
 // ---- helpers -------------------------------------------------------------
 
@@ -57,13 +58,17 @@ function StatTile({ title, value, icon, gradient }) {
   );
 }
 
-const CHART_TOOLTIP_STYLE = {
-  borderRadius: 12,
-  border: "1px solid #e2e8f0",
-  boxShadow: "0 12px 32px -12px rgb(15 23 42 / 0.25)",
-  fontSize: 13,
-  fontWeight: 600,
-};
+function chartTooltipStyle(isDark) {
+  return {
+    backgroundColor: isDark ? "#1e293b" : "#ffffff",
+    borderRadius: 12,
+    border: isDark ? "1px solid #334155" : "1px solid #e2e8f0",
+    boxShadow: "0 12px 32px -12px rgb(15 23 42 / 0.25)",
+    fontSize: 13,
+    fontWeight: 600,
+    color: isDark ? "#e2e8f0" : "#1e293b",
+  };
+}
 
 function truncateLabel(value, maxLength = 20) {
   return value.length > maxLength
@@ -75,6 +80,8 @@ function truncateLabel(value, maxLength = 20) {
 
 function AttendanceReport() {
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const [attendances, setAttendances] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -350,7 +357,7 @@ function AttendanceReport() {
                 >
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="#e2e8f0"
+                    stroke={isDark ? "#334155" : "#e2e8f0"}
                     horizontal={false}
                   />
                   <XAxis
@@ -365,14 +372,26 @@ function AttendanceReport() {
                     type="category"
                     dataKey="name"
                     width={160}
-                    tick={{ fontSize: 12, fill: "#475569", fontWeight: 600 }}
+                    tick={{
+                      fontSize: 12,
+                      fill: isDark ? "#cbd5e1" : "#475569",
+                      fontWeight: 600,
+                    }}
                     tickFormatter={truncateLabel}
                     axisLine={false}
                     tickLine={false}
                   />
                   <Tooltip
-                    cursor={{ fill: "#f1f5f9" }}
-                    contentStyle={CHART_TOOLTIP_STYLE}
+                    cursor={{
+                      fill: isDark ? "rgba(148, 163, 184, 0.15)" : "#f1f5f9",
+                    }}
+                    contentStyle={chartTooltipStyle(isDark)}
+                    labelStyle={{
+                      color: isDark ? "#e2e8f0" : "#1e293b",
+                    }}
+                    itemStyle={{
+                      color: isDark ? "#e2e8f0" : "#1e293b",
+                    }}
                     formatter={(value) => [`${value}%`, "Attendance"]}
                   />
                   <ReferenceLine
@@ -433,7 +452,15 @@ function AttendanceReport() {
                       <Cell key={entry.name} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip contentStyle={CHART_TOOLTIP_STYLE} />
+                  <Tooltip
+                    contentStyle={chartTooltipStyle(isDark)}
+                    labelStyle={{
+                      color: isDark ? "#e2e8f0" : "#1e293b",
+                    }}
+                    itemStyle={{
+                      color: isDark ? "#e2e8f0" : "#1e293b",
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
 
